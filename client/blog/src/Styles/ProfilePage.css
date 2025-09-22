@@ -1,0 +1,49 @@
+.profile-page-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    padding: 30px;
+    background-color: #ffffff;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    margin-bottom: 40px;
+}
+
+.profile-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: #007bff; /* Placeholder color */
+    margin-right: 25px;
+    /* In the future, an <img> tag would go here */
+}
+
+.profile-info h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.5rem;
+    margin: 0;
+    color: #2c3e50;
+}
+
+.posts-list-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.5rem;
+    color: #343a40;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #dee2e6;
+    padding-bottom: 10px;
+}
+
+.no-posts-message {
+    padding: 40px;
+    text-align: center;
+    color: #6c757d;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+}

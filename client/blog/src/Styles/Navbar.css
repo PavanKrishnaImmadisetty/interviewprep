@@ -1,0 +1,174 @@
+:root {
+    --primary-color: #2563eb; /* A modern, professional blue */
+    --primary-hover: #1d4ed8;
+    --danger-color: #dc3545; /* Red for logout/delete */
+    --text-dark: #1f2937;
+    --text-light: #6b7280;
+    --border-color: #e5e7eb;
+    --background-light: #f9fafb;
+    --navbar-height: 64px;
+}
+
+/* --- BASE NAVBAR --- */
+.navbar {
+    background: #ffffff;
+    height: var(--navbar-height);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid var(--border-color);
+    font-family: 'Poppins', sans-serif;
+}
+
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    max-width: 1400px;
+    padding: 0 1.5rem;
+}
+
+.navbar-logo {
+    color: var(--text-dark);
+    text-decoration: none;
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+/* --- MAIN MENU --- */
+.navbar-menu {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+    gap: 2rem;
+}
+
+.navbar-item {
+    height: var(--navbar-height);
+}
+
+.navbar-link {
+    background-color: #ffffff; /* Prevents shadow from showing through */
+    color: var(--text-light);
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    height: 100%;
+    font-weight: 500;
+    font-size: 0.95rem;
+    position: relative;
+    padding: 0 4px; /* Small padding for the underline effect */
+    border: none;
+    border-bottom: 3px solid transparent;
+    box-sizing: border-box;
+    transition: color 0.2s ease-out;
+}
+
+.navbar-link::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; /* Sits on top of the navbar border */
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--primary-color);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.navbar-link:hover {
+    color: var(--text-dark);
+}
+
+.navbar-link.active {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.navbar-link.active::after {
+    transform: scaleX(1);
+}
+
+/* Special button-like link for signup */
+.btn.btn--primary {
+    background-color: var(--primary-color);
+    color: #fff;
+    padding: 8px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: background-color 0.2s ease-out;
+}
+.btn.btn--primary:hover {
+    background-color: var(--primary-hover);
+}
+
+
+/* Special style for the logout button to look like a link */
+.navbar-logout-button {
+    background: transparent;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+}
+.navbar-logout-button:hover {
+    color: var(--danger-color); /* Red hover for destructive action */
+}
+
+.menu-icon {
+    display: none;
+}
+
+/* --- RESPONSIVE STYLES (MOBILE) --- */
+@media screen and (max-width: 960px) {
+    .navbar-menu {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: calc(100vh - var(--navbar-height));
+        position: absolute;
+        top: var(--navbar-height);
+        left: -100%;
+        transition: all 0.5s ease;
+        background: #fff;
+        gap: 0;
+    }
+    .navbar-menu.active {
+        left: 0;
+    }
+
+    .navbar-item {
+        width: 100%;
+        height: auto;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .navbar-link, .navbar-logout-button {
+        width: 100%;
+        padding: 1.5rem 2rem;
+        color: var(--text-dark);
+    }
+
+    .navbar-link::after, .navbar-link.active::after {
+        display: none;
+    }
+
+    .navbar-link.active {
+        background-color: var(--background-light);
+        color: var(--primary-color);
+    }
+    
+    .menu-icon {
+        display: block;
+        font-size: 1.8rem;
+        cursor: pointer;
+        color: var(--text-dark);
+    }
+}

@@ -1,0 +1,37 @@
+/* --- Styles for the ReactQuill Editor --- */
+
+/* This targets the entire editor component */
+.quill-editor {
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    transition: all 0.2s ease-in-out;
+}
+
+/* Style the toolbar */
+.quill-editor .ql-toolbar {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom: 1px solid #ddd; /* Separator line */
+    background-color: #f9f9f9;
+}
+
+/* Style the main content area */
+.quill-editor .ql-container {
+    min-height: 200px;
+    font-size: 16px;
+    font-family: 'Roboto', sans-serif;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+/* Remove the default Quill borders since we added our own to the parent */
+.quill-editor .ql-toolbar,
+.quill-editor .ql-container {
+    border: none;
+}
+
+/* Modern focus effect for the entire editor */
+.quill-editor:focus-within {
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
+}
