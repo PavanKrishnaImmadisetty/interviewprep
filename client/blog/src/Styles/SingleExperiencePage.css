@@ -32,15 +32,15 @@
 }
 
 .main-company-name {
-    font-size: 1.1rem;
-    color: var(--text-light);
+    font-size: 1.5rem;
+    color: var(--text-dark);
     margin: 0;
     font-weight: 500;
 }
 
 .main-role-title {
     font-family: 'Poppins', sans-serif;
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: 700;
     color: var(--text-dark);
     line-height: 1.2;
@@ -186,6 +186,9 @@
     flex-shrink: 0;
 }
 
+
+
+
 .author-info strong { font-size: 1rem; color: var(--text-dark); }
 .author-info p { font-size: 0.875rem; color: var(--text-light); margin: 2px 0 0 0; }
 
@@ -198,4 +201,121 @@
         position: static; /* Unstick the sidebar */
         top: auto;
     }
+}
+
+/* In SingleExperiencePage.css */
+
+/* --- Main Comments Section --- */
+.comments-section {
+    margin-top: 50px;
+    padding-top: 30px;
+    border-top: 1px solid var(--border-color, #e5e7eb);
+}
+
+.comments-section h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.8rem;
+    color: var(--text-dark, #1f2937);
+    margin-bottom: 25px;
+}
+
+/* --- Comment Form --- */
+.comment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 40px;
+}
+
+.comment-form textarea {
+    width: 100%;
+    min-height: 80px;
+    padding: 12px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-family: 'Roboto', sans-serif;
+    resize: vertical;
+    box-sizing: border-box;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+.comment-form textarea:focus {
+    border-color: var(--primary-color, #2563eb);
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(37, 99, 235, 0.25);
+}
+
+.comment-form button {
+    align-self: flex-end;
+    padding: 10px 25px;
+    border-radius: 6px;
+    background-color: var(--primary-color, #2563eb);
+    color: #fff;
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+.comment-form button:hover {
+    background-color: var(--primary-hover, #1d4ed8);
+}
+
+.comment-login-prompt {
+    text-align: center;
+    padding: 20px;
+    background-color: var(--background-light, #f8f9fa);
+    border-radius: 8px;
+    margin-bottom: 40px;
+}
+.comment-login-prompt a {
+    color: var(--primary-color, #2563eb);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+/* --- List of Comments --- */
+.comments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.comment-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+.comment-author-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #dee2e6;
+    color: var(--text-light, #6b7280);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: 700;
+    flex-shrink: 0; /* Prevents the avatar from shrinking */
+}
+
+.comment-content {
+    flex-grow: 1;
+}
+
+.comment-author-name {
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    margin: 0 0 5px 0;
+    color: var(--text-dark, #1f2937);
+}
+
+.comment-text {
+    margin: 0;
+    color: #34495e;
+    line-height: 1.6;
+    /* Allows long words/links to wrap */
+    word-break: break-word;
 }

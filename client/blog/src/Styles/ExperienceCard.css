@@ -117,6 +117,11 @@
     font-family: 'Poppins', sans-serif;
 }
 
+.comment-button{
+    text-decoration: none;
+    color: var(--text-light, #6b7280);
+}
+
 .action-button.saved,
 .action-button.saved:hover {
     color: var(--primary-color, #2563eb); /* Blue color for a saved bookmark */
@@ -125,4 +130,8 @@
 .action-button.liked,
 .action-button.liked:hover {
     color: var(--primary-color, #2563eb); /* Blue color for a saved bookmark */
+}
+
+.comment-button:hover{
+    color: var(--primary-color, #2563eb)
 }

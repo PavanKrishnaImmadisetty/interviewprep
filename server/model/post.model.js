@@ -10,7 +10,10 @@ const roundSchema = new mongoose.Schema({
     description: {
         type: String,
         required: true
-    }
+    },
+    links : [{
+        type:String
+    }]
 });
 
 const experienceSchema = mongoose.Schema(
@@ -42,9 +45,7 @@ const experienceSchema = mongoose.Schema(
         // Dynamic Rounds
         rounds: [roundSchema],
 
-        links : [{
-            type:String
-        }],
+        
 
         // Tips / Main Content
         tips: { type: String },

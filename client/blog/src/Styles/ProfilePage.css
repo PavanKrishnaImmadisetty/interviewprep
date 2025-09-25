@@ -1,49 +1,332 @@
+/* Professional Profile Page Styles */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* Main Container */
 .profile-page-container {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 40px 20px;
-}
-
-.profile-header {
-    display: flex;
-    align-items: center;
-    padding: 30px;
-    background-color: #ffffff;
-    border: 1px solid #dee2e6;
-    border-radius: 8px;
-    margin-bottom: 40px;
-}
-
-.profile-avatar {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    background-color: #007bff; /* Placeholder color */
-    margin-right: 25px;
-    /* In the future, an <img> tag would go here */
-}
-
-.profile-info h1 {
-    font-family: 'Poppins', sans-serif;
-    font-size: 2.5rem;
-    margin: 0;
+    min-height: 100vh;
+    background-color: #fafbfc;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     color: #2c3e50;
 }
 
-.posts-list-title {
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.5rem;
-    color: #343a40;
-    margin-bottom: 20px;
-    border-bottom: 2px solid #dee2e6;
-    padding-bottom: 10px;
+/* Header Section */
+.profile-header-section {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border-bottom: 1px solid #e9ecef;
+    padding: 60px 0 40px;
 }
 
-.no-posts-message {
-    padding: 40px;
+.profile-header {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+}
+
+/* Avatar Styles */
+.profile-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 25px rgba(79, 70, 229, 0.15);
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.profile-avatar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 35px rgba(79, 70, 229, 0.2);
+}
+
+.avatar-initials {
+    font-size: 36px;
+    font-weight: 700;
+    color: white;
+    letter-spacing: -1px;
+}
+
+/* Profile Info */
+.profile-info {
+    flex: 1;
+}
+
+.profile-name {
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: #1a202c;
+    margin: 0 0 12px 0;
+    line-height: 1.2;
+}
+
+.profile-meta {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.meta-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #64748b;
+    font-size: 0.95rem;
+    font-weight: 500;
+    padding: 8px 0;
+}
+
+.meta-item svg {
+    color: #4f46e5;
+    opacity: 0.8;
+}
+
+/* Experiences Section */
+.experiences-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
+}
+
+.section-header {
+    margin-bottom: 40px;
+    text-align: left;
+}
+
+.section-title {
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: #1a202c;
+    margin: 0 0 8px 0;
+    line-height: 1.3;
+}
+
+.section-description {
+    font-size: 1.05rem;
+    color: #64748b;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Experiences List */
+.experiences-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.experience-item {
+    background: white;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    transition: all 0.2s ease;
+    overflow: hidden;
+}
+
+.experience-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    border-color: #cbd5e1;
+}
+
+/* Empty State */
+.empty-state {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 80px 40px;
     text-align: center;
-    color: #6c757d;
-    background-color: #fff;
-    border: 1px solid #dee2e6;
-    border-radius: 8px;
+}
+
+.empty-content {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.empty-icon {
+    color: #94a3b8;
+    margin-bottom: 24px;
+    display: flex;
+    justify-content: center;
+}
+
+.empty-state h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #374151;
+    margin: 0 0 8px 0;
+}
+
+.empty-state p {
+    font-size: 1rem;
+    color: #6b7280;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Loading State */
+.loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #fafbfc;
+}
+
+.loading-spinner {
+    width: 32px;
+    height: 32px;
+    border: 3px solid #e2e8f0;
+    border-top: 3px solid #4f46e5;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 16px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading-text {
+    font-size: 1rem;
+    color: #64748b;
+    font-weight: 500;
+    margin: 0;
+}
+
+/* Error State */
+.error-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #fafbfc;
+    padding: 24px;
+}
+
+.error-content {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 48px;
+    text-align: center;
+    max-width: 500px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.error-content h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #374151;
+    margin: 0 0 12px 0;
+}
+
+.error-content p {
+    font-size: 1rem;
+    color: #6b7280;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .profile-header-section {
+        padding: 40px 0 32px;
+    }
+    
+    .profile-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 24px;
+        padding: 0 20px;
+    }
+    
+    .profile-name {
+        font-size: 1.875rem;
+    }
+    
+    .section-title {
+        font-size: 1.5rem;
+    }
+    
+    .experiences-section {
+        padding: 32px 20px 60px;
+    }
+    
+    .profile-meta {
+        justify-content: center;
+        gap: 16px;
+    }
+    
+    .meta-item {
+        font-size: 0.9rem;
+    }
+    
+    .empty-state {
+        padding: 60px 24px;
+    }
+    
+    .error-content {
+        padding: 32px 24px;
+        margin: 0 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-avatar {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .avatar-initials {
+        font-size: 28px;
+    }
+    
+    .profile-name {
+        font-size: 1.625rem;
+    }
+    
+    .section-title {
+        font-size: 1.375rem;
+    }
+    
+    .profile-meta {
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+    }
+    
+    .experiences-list {
+        gap: 16px;
+    }
+}
+
+/* Focus states for accessibility */
+.profile-avatar:focus-visible,
+.experience-item:focus-visible {
+    outline: 2px solid #4f46e5;
+    outline-offset: 2px;
+}
+
+/* Print styles */
+@media print {
+    .profile-page-container {
+        background: white;
+    }
+    
+    .profile-header-section {
+        background: white;
+        border-bottom: 1px solid #ccc;
+    }
+    
+    .experience-item:hover {
+        transform: none;
+        box-shadow: none;
+    }
 }

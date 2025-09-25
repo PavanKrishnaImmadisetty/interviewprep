@@ -152,7 +152,7 @@ router.put('/experiences/:id/save', authMiddleware, async (req, res) => {
             return res.status(404).json({ message: 'User not found' });
         }
         
-        const hasSaved = user.saves.includes(experienceId);
+        const hasSaved = user.saves.includes(id);
 
         if (hasSaved) {
             // If already saved, remove it (unsave)
@@ -164,11 +164,11 @@ router.put('/experiences/:id/save', authMiddleware, async (req, res) => {
 
         await user.save();
         // Return the updated user object (without password)
-        const updatedUser = await ExperienceModel.findById(user).select('-password');
+        const updatedUser = await ExperienceModel.findById(user._id).select('-password');
         res.status(200).json({ success: true, user: updatedUser });
 
     } catch (error) {
-        console.log(id)
+        
         res.status(500).json({success:false, message: 'server error' });
     }
 });

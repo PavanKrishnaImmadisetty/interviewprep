@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link,NavLink } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { FaHeart, FaRegHeart, FaRegComment, FaRegBookmark,FaBookmark } from 'react-icons/fa';
 import axios from 'axios';
@@ -7,13 +7,12 @@ import '../Styles/ExperienceCard.css';
 
 const ExperienceCard = ({ experience }) => {
     const { _id, companyName, role, author, appliedAt, verdict, difficulty, createdAt, likes } = experience;
-    const { auth,setUser } = useAuth();
+    const { auth } = useAuth();
     
     // State for the component
     const [likeCount, setLikeCount] = useState(likes.length);
     const [isLiked, setIsLiked] = useState(false);
-
-    
+    const [commentcount,setCommentCount] = useState(0) 
     const [isSaved,setIsSaved] = useState(false)
     
     const postDate = new Date(createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
@@ -62,11 +61,11 @@ const ExperienceCard = ({ experience }) => {
         try {
             const config = { headers: { Authorization: `Bearer ${auth.token}` } };
             // FIX: Call the correct API route in the user router
-            console.log(_id)
-            const response = await axios.put(`http://localhost:5000/api/experiences/${_id}/save`, {}, config);
+            
+            await axios.put(`http://localhost:5000/api/experiences/${_id}/save`, {}, config);
             
             // FIX: Update the global user state with the new user object from the server
-            setUser(response.data.user);
+            
         } catch (error) {
             console.error("Failed to update save status:", error);
             setIsSaved(isSaved); // Revert on error
@@ -109,7 +108,7 @@ const ExperienceCard = ({ experience }) => {
                     </button>
                     <button className="action-button">
                         <FaRegComment />
-                        <span>Comment</span>
+                        <Link to={`/experiences/${_id}`} className="comment-button">{commentcount} {commentcount == 1?'Comment' :'comments'}</Link>
                     </button>
                     <button onClick ={handleSave} className={`action-button ${isSaved ? 'saved' : ''}`} >
                         {isSaved ? <FaBookmark /> : <FaRegBookmark />}

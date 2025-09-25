@@ -13,6 +13,8 @@ const SingleExperiencePage = () => {
   const [experience, setExperience] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [comments, setComments] = useState([]);
+  const [newComment, setNewComment] = useState('');
 
   // Fetch experience
   useEffect(() => {
@@ -20,7 +22,9 @@ const SingleExperiencePage = () => {
       try {
         const config = { headers: { Authorization: `Bearer ${auth.token}` } };
         const res = await axios.get(`http://localhost:5000/api/experiences/${id}`, config);
+        const comments = await axios.get(`http://localhost:5000/api/comments/${id}`,config)
         setExperience(res.data.experience);
+        setComments(comments.data.comments)
       } catch (err) {
         setError('Experience not found or an error occurred.');
         console.error(err);
@@ -30,6 +34,27 @@ const SingleExperiencePage = () => {
     };
     fetchExperience();
   }, [id, auth.token]);
+
+  const handleCommentSubmit = async (e) => {
+        e.preventDefault();
+        if (!newComment.trim()) return; // Don't submit empty comments
+
+        try {
+          
+            const config = { headers: { Authorization: `Bearer ${auth.token}` } };
+            const response = await axios.post(
+                `http://localhost:5000/api/comments/${id}`, 
+                { content: newComment }, 
+                config
+            );
+            // Add the new comment to the top of the list instantly
+            setComments([response.data.comment, ...comments]);
+            setNewComment(''); // Clear the input box
+        } catch (error) {
+            console.error("Failed to post comment:", error);
+            alert("Failed to post comment.");
+        }
+    };
 
   if (loading) return <div className="loading-message">Loading Experience...</div>;
   if (error) return <div className="error-message">{error}</div>;
@@ -72,18 +97,18 @@ const SingleExperiencePage = () => {
                 className="round-description"
                 dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(round.description) }}
               />
-              {round.links && (
+              {round.links.length > 0 ? (
                 <div className="round-links">
                   <strong>Resources / Links:</strong>
                   <ul>
-                    {round.links.split('\n').map((link, i) => (
+                    {round.links.map((link, i) => (
                       <li key={i}>
                         <a href={link} target="_blank" rel="noopener noreferrer">{link}</a>
                       </li>
                     ))}
                   </ul>
                 </div>
-              )}
+              ):null}
             </div>
           ))}
         </div>
@@ -94,6 +119,37 @@ const SingleExperiencePage = () => {
             <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(experience.tips) }} />
           </div>
         )}
+        <div className="comments-section">
+                    <h2>Comments ({(comments || []).length})</h2>
+
+                    {/* Comment Form for logged-in users */}
+                    {auth.token ? (
+                        <form onSubmit={handleCommentSubmit} className="comment-form">
+                            <textarea
+                                value={newComment}
+                                onChange={(e) => setNewComment(e.target.value)}
+                                placeholder="Leave a comment..."
+                                rows="3"
+                            ></textarea>
+                            <button type="submit">Post Comment</button>
+                        </form>
+                    ) : (
+                        <p className="comment-login-prompt">
+                            <Link to="/login">Log in</Link> to leave a comment.
+                        </p>
+                    )}
+            <div className="comments-list">
+                        {(comments || []).map(comment => (
+                            <div key={comment._id} className="comment-item">
+                                <div className="comment-author-avatar">{comment.author.name.charAt(0)}</div>
+                                <div className="comment-content">
+                                    <p className="comment-author-name">{comment.author.name}</p>
+                                    <p className="comment-text">{comment.content}</p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                    </div>
       </main>
 
       {/* --- Sidebar --- */}
@@ -140,6 +196,7 @@ const SingleExperiencePage = () => {
               <strong>Difficulty</strong>
               <p className="tag tag-difficulty">{experience.difficulty}</p>
             </div>
+            
           </div>
         </div>
 
