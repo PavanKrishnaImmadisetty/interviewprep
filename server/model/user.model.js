@@ -31,7 +31,13 @@ const userSchema = mongoose.Schema({
     saves:[{
         type:mongoose.Schema.Types.ObjectId,
         ref:'Experience'
-    }]
+    }],
+
+    role : {
+        type : String,
+        enum : ['user','admin'],
+        default : 'user'
+    }
 },
     {
         timestamps:true

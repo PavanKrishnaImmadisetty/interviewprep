@@ -1,0 +1,85 @@
+.table-container {
+    background-color: #fff;
+    border: 1px solid var(--border-color, #e5e7eb);
+    border-radius: 8px;
+    overflow-x: auto; /* For responsiveness */
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.admin-table th,
+.admin-table td {
+    padding: 12px 15px;
+    text-align: left;
+}
+
+.admin-table thead {
+    background-color: var(--background-light, #f9fafb);
+}
+
+.admin-table th {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    color: var(--text-light, #6b7280);
+}
+
+.admin-table tbody tr {
+    border-bottom: 1px solid var(--border-color, #e5e7eb);
+}
+
+.admin-table tbody tr:last-of-type {
+    border-bottom: none;
+}
+
+.admin-table td {
+    color: var(--text-dark, #1f2937);
+}
+
+/* In AdminTable.css */
+
+.action-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.action-buttons button {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+
+.btn-promote {
+    background-color: #d1e7dd;
+    color: #0f5132;
+    border-color: #b1dfbb;
+}
+.btn-promote:hover { background-color: #a3cfbb; }
+
+.btn-demote {
+    background-color: #fff3cd;
+    color: #664d03;
+    border-color: #ffe69c;
+}
+.btn-demote:hover { background-color: #fde293; }
+
+
+.btn-delete {
+    background-color: #f8d7da;
+    color: #842029;
+    border-color: #f5c6cb;
+}
+.btn-delete:hover { background-color: #f1b0b7; }
+
+.action-buttons button:disabled {
+    background-color: #e9ecef;
+    color: #adb5bd;
+    cursor: not-allowed;
+    border-color: #dee2e6;
+}

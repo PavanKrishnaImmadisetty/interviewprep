@@ -60,7 +60,13 @@ const experienceSchema = mongoose.Schema(
         likes : [{
             type:mongoose.Schema.Types.ObjectId,
             ref:'userModel'
-        }]
+        }],
+
+        status : {
+            type : String,
+            enum : ['Pending','Approved','Rejected'],
+            default : 'Pending'
+        }
     }, 
     {
         timestamps: true

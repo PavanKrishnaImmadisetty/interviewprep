@@ -8,6 +8,7 @@ import '../Styles/Navbar.css';
 
 const Navbar = () => {
     const { auth, logout } = useAuth();
+    console.log(auth)
     const navigate = useNavigate();
     const [menuOpen, setMenuOpen] = useState(false);
 

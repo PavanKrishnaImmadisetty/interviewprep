@@ -19,7 +19,7 @@ router.post('/postexperience', authMiddleware, async (req, res) => {
             appliedAt, verdict, difficulty, rounds,links, tips,
             author: req.user.id,
         });
-
+        
         await newExperience.save();
         res.status(201).json({ success: true, experience: newExperience });
     } catch (error) {
@@ -73,7 +73,7 @@ router.delete('/experiences/:id', authMiddleware, async (req, res) => {
 // --- GET ALL EXPERIENCES (PUBLIC) ---
 router.get('/experiences',authMiddleware, async (req, res) => {
     try {
-        const experiences = await ExperienceModel.find({})
+        const experiences = await ExperienceModel.find({status : 'Approved'})
             .populate('author', 'name branch')
             .sort({ createdAt: -1 });
         res.status(200).json({ success: true, experiences });

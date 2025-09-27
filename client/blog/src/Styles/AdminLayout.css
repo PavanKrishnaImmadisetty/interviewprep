@@ -1,0 +1,8 @@
+.admin-layout {
+    display: flex;
+}
+.admin-content {
+    flex-grow: 1;
+    padding: 2rem;
+    background-color: var(--background-light, #f8f9fa);
+}

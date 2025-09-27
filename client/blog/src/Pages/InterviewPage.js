@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import ExperienceCard from '../components/ExperienceCard';
 import FilterBar from '../components/FilterBar'; 
-import '../Styles/HomePage.css';
+import '../Styles/InterviewPage.css';
 import {useAuth} from '../context/AuthContext.js'
 
 const INITIAL_FILTERS = {
@@ -81,14 +81,16 @@ const InterviewsPage = () => {
     if (loading) return <div className="loading-message">Loading Experiences...</div>;
 
     return (
-        <div className="homepage-container">
-            <h1 className="homepage-title">All Interview Experiences</h1>
+        <div className="interview-container">
+            <h1 className="interview-title">All Interview Experiences</h1>
             
-            <FilterBar 
+                <FilterBar 
                 filters={filters}
                 onFilterChange={handleFilterChange}
                 companyOptions={companyOptions}
             />
+            
+            
 
             <div className="posts-list">
                 {filteredExperiences.length > 0 ? (

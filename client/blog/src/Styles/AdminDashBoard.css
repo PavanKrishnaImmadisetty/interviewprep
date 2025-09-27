@@ -1,0 +1,44 @@
+/* In src/styles/AdminDashboard.css */
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.stat-card {
+    background-color: #fff;
+    border: 1px solid var(--border-color, #e5e7eb);
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.2s ease-in-out;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+}
+
+.stat-card h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.5rem;
+    margin: 0 0 0.5rem 0;
+    color: var(--text-dark, #1f2937);
+}
+
+.stat-card p {
+    font-size: 1rem;
+    color: var(--text-light, #6b7280);
+    margin: 0;
+}
+
+/* Special style for the most important card */
+.stat-card.pending {
+    background-color: #fffbe6; /* Light yellow */
+    border-color: #ffe58f;
+}
+.stat-card.pending h2 {
+    color: #856404;
+}

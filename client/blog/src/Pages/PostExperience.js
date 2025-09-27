@@ -79,7 +79,7 @@ function PostExperiencePage() {
     e.preventDefault();
     try {
       const config = { headers: { Authorization: `Bearer ${auth.token}` } };
-      await axios.post('http://localhost:5000/api/experiences/create', formData, config);
+      await axios.post('http://localhost:5000/api/postexperience', formData, config);
       alert('Experience submitted successfully!');
       navigate('/');
     } catch (error) {
