@@ -83,7 +83,7 @@ function PostExperiencePage() {
     try {
       const config = { headers: { Authorization: `Bearer ${auth.token}` } };
       await axios.post(`${process.env.REACT_APP_API_URL}/api/postexperience`, formData, config);
-      alert('Experience submitted successfully!');
+      alert('Experience submitted!Now Ur Experience is awaiting for admin approval.') 
       handleClear()
       navigate('/');
     } catch (error) {

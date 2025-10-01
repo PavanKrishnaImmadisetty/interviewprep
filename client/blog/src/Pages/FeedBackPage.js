@@ -22,7 +22,7 @@ function FeedbackPage() {
         try {
             const config = { headers: { Authorization: `Bearer ${auth.token}` } };
             const response = await axios.post(
-                `${process.env.REACT_APP_API_URL}/api/feedback`,
+                `${process.env.REACT_APP_API_URL}/api/feedbacks`,
                 { feedbacktype, message },
                 config
             );

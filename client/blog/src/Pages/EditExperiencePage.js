@@ -38,7 +38,7 @@ const EditExperiencePage = () => {
         try {
             const config = { headers: { Authorization: `Bearer ${auth.token}` } };
             await axios.put(`${process.env.REACT_APP_API_URL}/api/experiences/${id}`, formData, config);
-            alert('Experience updated successfully!');
+            alert('Experience updated! now Ur updated Experience is awaiting for admin approval.');
             navigate(`/experiences/${id}`);
         } catch (error) {
             
