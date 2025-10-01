@@ -1,6 +1,3 @@
-
-
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import ExperienceCard from '../components/ExperienceCard';
@@ -22,12 +19,16 @@ const InterviewsPage = () => {
   const [filters, setFilters] = useState(INITIAL_FILTERS);
   const [loading, setLoading] = useState(true);
 
+  const local = 'http://localhost:5000'
+  const global = 'https://interviewprep-mepc.onrender.com'
+
+
   // Fetch data on mount
   useEffect(() => {
     const fetchExperiences = async () => {
       try {
         const config = { headers: { Authorization: `Bearer ${auth.token}` } };
-        const response = await axios.get('http://localhost:5000/api/experiences', config);
+        const response = await axios.get(`${global}/api/experiences`, config);
 
         const experiences = response.data.experiences || [];
         setAllExperiences(experiences);

@@ -9,11 +9,15 @@ function AdminPage() {
     const [loading, setLoading] = useState(true);
     const { auth } = useAuth();
 
+    const local = 'http://localhost:5000'
+    const global = 'https://interviewprep-mepc.onrender.com'
+
+
     useEffect(() => {
         const fetchPending = async () => {
             try {
                 const config = { headers: { Authorization: `Bearer ${auth.token}` } };
-                const res = await axios.get('http://localhost:5000/api/admin/pending', config);
+                const res = await axios.get(`${global}/api/admin/pending`, config);
                 setPending(res.data.experiences);
             } catch (error) {
                 console.error("Could not fetch pending experiences", error);
@@ -27,7 +31,7 @@ function AdminPage() {
     const handleApprove = async (id) => {
         try {
             const config = { headers: { Authorization: `Bearer ${auth.token}` } };
-            await axios.put(`http://localhost:5000/api/admin/approve/${id}`, {}, config);
+            await axios.put(`${global}/api/admin/approve/${id}`, {}, config);
             // Remove the approved item from the list
             setPending(pending.filter(exp => exp._id !== id));
         } catch (error) {

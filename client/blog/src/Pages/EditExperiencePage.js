@@ -4,8 +4,7 @@ import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 import ExperienceForm from '../components/ExperienceForm.js';
 import '../Styles/EditExperiencePage.css';
-import Footer from '../Pages/Footer.js'
-import Navbar from '../components/Navbar.js'
+
 
 const EditExperiencePage = () => {
     const { id } = useParams();
@@ -14,11 +13,15 @@ const EditExperiencePage = () => {
     const [initialData, setInitialData] = useState(null);
     const [loading, setLoading] = useState(true);
 
+    const local = 'http://localhost:5000'
+    const global = 'https://interviewprep-mepc.onrender.com'
+
+
     useEffect(() => {
         const fetchExperience = async () => {
             try {
                 const config = { headers: { Authorization: `Bearer ${auth.token}` } };
-                const response = await axios.get(`http://localhost:5000/api/experiences/${id}`, config);
+                const response = await axios.get(`${global}/api/experiences/${id}`, config);
                 setInitialData(response.data.experience);
             } catch (error) {
                 
@@ -34,7 +37,7 @@ const EditExperiencePage = () => {
     const handleUpdate = async (formData) => {
         try {
             const config = { headers: { Authorization: `Bearer ${auth.token}` } };
-            await axios.put(`http://localhost:5000/api/experiences/${id}`, formData, config);
+            await axios.put(`${global}/api/experiences/${id}`, formData, config);
             alert('Experience updated successfully!');
             navigate(`/experiences/${id}`);
         } catch (error) {

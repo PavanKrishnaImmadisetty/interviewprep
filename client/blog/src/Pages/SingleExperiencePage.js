@@ -16,14 +16,17 @@ const SingleExperiencePage = () => {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState('');
   const navigate = useNavigate()
+  const local = 'http://localhost:5000'
+  const global = 'https://interviewprep-mepc.onrender.com'
+
 
   // Fetch experience
   useEffect(() => {
     const fetchExperience = async () => {
       try {
         const config = { headers: { Authorization: `Bearer ${auth.token}` } };
-        const res = await axios.get(`http://localhost:5000/api/experiences/${id}`, config);
-        const comments = await axios.get(`http://localhost:5000/api/comments/${id}`,config)
+        const res = await axios.get(`${global}/api/experiences/${id}`, config);
+        const comments = await axios.get(`${global}/api/comments/${id}`,config)
         setExperience(res.data.experience);
         setComments(comments.data.comments)
       } catch (err) {
@@ -44,7 +47,7 @@ const SingleExperiencePage = () => {
           
             const config = { headers: { Authorization: `Bearer ${auth.token}` } };
             const response = await axios.post(
-                `http://localhost:5000/api/comments/${id}`, 
+                `${global}/api/comments/${id}`, 
                 { content: newComment }, 
                 config
             );
@@ -161,7 +164,7 @@ const SingleExperiencePage = () => {
 
                                   try {
                                     const config = { headers: { Authorization: `Bearer ${auth.token}` } };
-                                    await axios.delete(`http://localhost:5000/api/comments/${comment._id}`, config);
+                                    await axios.delete(`${global}/api/comments/${comment._id}`, config);
 
                                     // Update state to remove deleted comment
                                     setComments(comments.filter(c => c._id !== comment._id));

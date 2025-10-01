@@ -8,11 +8,15 @@ const AdminFeedbackPage = () => {
     const [loading, setLoading] = useState(true);
     const { auth } = useAuth();
 
+    const local = 'http://localhost:5000'
+    const global = 'https://interviewprep-mepc.onrender.com'
+
+
     useEffect(() => {
         const fetchFeedbacks = async () => {
             try {
                 const config = { headers: { Authorization: `Bearer ${auth.token}` } };
-                const res = await axios.get('http://localhost:5000/api/feedbacks', config);
+                const res = await axios.get(`${global}/api/feedbacks`, config);
                 setFeedbacks(res.data.feedbacks);
             } catch (error) {
                 console.error("Could not fetch feedbacks", error);

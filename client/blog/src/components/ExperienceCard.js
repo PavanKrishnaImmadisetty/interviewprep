@@ -21,12 +21,15 @@ const ExperienceCard = ({ experience, showActions }) => {
     year: 'numeric'
   });
 
+  const local = 'http://localhost:5000'
+  const global = 'https://interviewprep-mepc.onrender.com'
+
   useEffect(() => {
     const fetchData = async () => {
       if (auth.user) {
         try {
           const config = { headers: { Authorization: `Bearer ${auth.token}` } };
-          const res = await axios.get(`http://localhost:5000/api/comments/${_id}`, config);
+          const res = await axios.get(`${global}/api/comments/${_id}`, config);
           setCommentCount(res.data.comments?.length || 0);
 
           const savedArr = auth.user.saves || [];
@@ -53,7 +56,7 @@ const ExperienceCard = ({ experience, showActions }) => {
     setLikeCount(prevLiked ? prevCount - 1 : prevCount + 1);
     try {
       const config = { headers: { Authorization: `Bearer ${auth.token}` } };
-      await axios.put(`http://localhost:5000/api/experiences/${_id}/like`, {}, config);
+      await axios.put(`${global}/api/experiences/${_id}/like`, {}, config);
     } catch (error) {
       console.error("Failed to update like status:", error);
       setIsLiked(prevLiked);
@@ -67,11 +70,11 @@ const ExperienceCard = ({ experience, showActions }) => {
     setIsSaved(!prevIsSaved);
     try {
       const config = { headers: { Authorization: `Bearer ${auth.token}` } };
-      const response = await axios.put(`http://localhost:5000/api/experiences/${_id}/save`, {}, config);
+      const response = await axios.put(`${global}/api/experiences/${_id}/save`, {}, config);
       if (response?.data?.user) {
         setAuth(prev => ({ ...prev, user: response.data.user }));
       } else {
-        const profileRes = await axios.get('http://localhost:5000/api/auth/profile', config);
+        const profileRes = await axios.get(`${global}/api/auth/profile`, config);
         if (profileRes?.data?.user) {
           setAuth(prev => ({ ...prev, user: profileRes.data.user }));
         }
@@ -86,7 +89,7 @@ const ExperienceCard = ({ experience, showActions }) => {
     if (!window.confirm("Are you sure you want to delete this experience?")) return;
     try {
       const config = { headers: { Authorization: `Bearer ${auth.token}` } };
-      await axios.delete(`http://localhost:5000/api/experiences/${_id}`, config);
+      await axios.delete(`${global}/api/experiences/${_id}`, config);
       alert("Experience deleted successfully!");
       window.location.reload();
     } catch (error) {

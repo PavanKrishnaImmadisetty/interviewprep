@@ -14,6 +14,9 @@ const ProfilePage = () => {
     const [savedExperiences, setSavedExperiences] = useState([]);
     const [activeTab, setActiveTab] = useState('posts');
     const [loading, setLoading] = useState(true);
+    const local = 'http://localhost:5000'
+    const global = 'https://interviewprep-mepc.onrender.com'
+
 
     const isOwnProfile = auth.user && String(auth.user._id) === String(userId);
 
@@ -27,19 +30,19 @@ const ProfilePage = () => {
                 if (isOwnProfile && auth.user) {
                     setProfileUser(auth.user);
                 } else {
-                    const res = await axios.get(`http://localhost:5000/api/users/${userId}`, config);
+                    const res = await axios.get(`${global}/api/users/${userId}`, config);
                     setProfileUser(res.data.user || res.data);
                 }
 
                 // 2. Get user's posts
-                const postsRes = await axios.get(`http://localhost:5000/api/experiences/user/${userId}`, config);
+                const postsRes = await axios.get(`${global}/api/experiences/user/${userId}`, config);
                 setExperiences(postsRes.data.experiences || []);
 
                 // 3. If own profile, fetch saved experiences
                 if (isOwnProfile && auth.user?.saves?.length > 0) {
                     const savedIds = auth.user.saves;
                     const savedRes = await axios.get(
-                        `http://localhost:5000/api/experiences?ids=${savedIds.join(',')}`,
+                        `${global}/api/experiences?ids=${savedIds.join(',')}`,
                         config
                     );
                     setSavedExperiences(savedRes.data.experiences || []);

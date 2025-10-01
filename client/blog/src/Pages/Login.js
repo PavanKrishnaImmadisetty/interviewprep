@@ -10,6 +10,9 @@ const LoginPage = () => {
     const [isVisible, setIsVisible] = useState(false);
     const { login } = useAuth();
     const navigate = useNavigate();
+    const local = 'http://localhost:5000'
+    const global = 'https://interviewprep-mepc.onrender.com'
+
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -20,7 +23,7 @@ const LoginPage = () => {
         e.preventDefault();
 
         try {
-            const res = await axios.post('http://localhost:5000/api/auth/login', formData);
+            const res = await axios.post(`${global}/api/auth/login`, formData);
 
             if (res.data.success) {
                 const { token, user } = res.data;

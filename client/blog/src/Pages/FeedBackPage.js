@@ -10,6 +10,10 @@ function FeedbackPage() {
     const { auth } = useAuth();
     const navigate = useNavigate();
 
+    const local = 'http://localhost:5000'
+    const global = 'https://interviewprep-mepc.onrender.com'
+
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!message.trim()) {
@@ -18,7 +22,7 @@ function FeedbackPage() {
         try {
             const config = { headers: { Authorization: `Bearer ${auth.token}` } };
             const response = await axios.post(
-                'http://localhost:5000/api/feedback',
+                `${global}/api/feedback`,
                 { feedbacktype, message },
                 config
             );

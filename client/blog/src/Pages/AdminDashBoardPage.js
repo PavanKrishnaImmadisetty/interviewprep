@@ -11,11 +11,15 @@ const AdminDashboardPage = () => {
     const [loading, setLoading] = useState(true);
     const { auth } = useAuth();
 
+    const local = 'http://localhost:5000'
+    const global = 'https://interviewprep-mepc.onrender.com'
+
+
     useEffect(() => {
         const fetchStats = async () => {
             try {
                 const config = { headers: { Authorization: `Bearer ${auth.token}` } };
-                const res = await axios.get('http://localhost:5000/api/admin/stats', config);
+                const res = await axios.get(`${global}/api/admin/stats`, config);
                 setStats(res.data.stats);
             } catch (error) {
                 console.error("Could not fetch admin stats", error);
