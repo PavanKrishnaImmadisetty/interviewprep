@@ -7,9 +7,9 @@ import { useAuth } from '../context/AuthContext.js';
 const HomePage = () => {
   const { auth } = useAuth();
 
-  const totalExperiences = 120; 
-  const uniqueCompanies = 45;
-  const contributors = 60;
+  const totalExperiences = 10; 
+  const uniqueCompanies = 5;
+  const contributors = 10;
 
   return (
     <div className="homepage-container">

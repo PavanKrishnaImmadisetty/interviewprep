@@ -94,11 +94,20 @@ const ProfilePage = () => {
                     </div>
                     <div className="user-profile-details">
                         <h1 className="user-profile-name">{profileUser.name}</h1>
-                        <p className="user-profile-email">{profileUser.email}</p>
+                        
+
+                        {/* 🔹 Added User Info Section */}
+                        <div className="user-profile-extra">
+                            <p className="user-profile-branch">Email : {profileUser.email}</p>
+                            <p className="user-profile-branch">Branch: {profileUser.branch}</p>
+                            <p className="user-profile-batch">Batch: {profileUser.batch}</p>
+                        </div>
+
                         <div className="user-profile-stats">
                             <div className="user-stat-item">
-                                <span className="user-stat-value">{experiences.length}</span>
-                                <span className="user-stat-label">Experience{experiences.length !== 1 ? 's' : ''}</span>
+                                <span className="user-stat-value">Experience{experiences.length !== 1 ? 's' : ''} Shared</span>
+                                <span  className="user-stat-value">{experiences.length}</span>
+                                
                             </div>
                             <div className="user-stat-divider"></div>
                             <div className="user-stat-item">
