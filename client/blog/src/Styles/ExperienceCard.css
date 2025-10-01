@@ -1,137 +1,395 @@
+/* ====================================
+   MODERN EXPERIENCE CARD STYLES
+   Clean, Professional Blue Theme
+   ==================================== */
+
 .experience-card {
-    background: #ffffff;
-    border: 1px solid #e5e7eb;
-    border-radius: 12px;
-    padding: 24px;
-    display: flex;
-    flex-wrap: wrap; /* Allows wrapping on small screens */
-    justify-content: space-between;
-    transition: all 0.2s ease-in-out;
+  display: flex;
+  gap: 16px;
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e2e8f0;
+  transition: all 0.3s ease;
 }
 
 .experience-card:hover {
-    border-color: #d1d5db;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+  border-color: #3b82f6;
 }
 
-.card-main-content {
-    flex-grow: 1;
-}
+/* ====================================
+   COMPANY LOGO
+   ==================================== */
 
-.card-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 12px;
+.card-logo-container {
+  flex-shrink: 0;
 }
 
 .company-logo {
-    width: 48px;
-    height: 48px;
-    border-radius: 8px;
-    background-color: var(--primary-color, #2563eb);
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-right: 16px;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  border-radius: 10px;
+  text-transform: uppercase;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
 }
 
-.company-name {
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: var(--text-dark, #1f2937);
-    margin: 0;
+/* ====================================
+   CARD CONTENT
+   ==================================== */
+
+.card-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Header Section */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.card-title-section {
+  flex: 1;
+}
+
+.card-company-name {
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 4px 0;
+  line-height: 1.3;
 }
 
 .card-role {
-    font-size: 1rem;
-    color: var(--text-light, #6b7280);
-    margin: 0;
+  font-size: 1rem;
+  color: #64748b;
+  margin: 0;
+  font-weight: 500;
 }
 
-.card-meta {
-    font-size: 0.875rem;
-    color: #9ca3af;
-    margin-bottom: 20px;
+/* Verdict Badge */
+.card-verdict {
+  padding: 6px 14px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  border-radius: 6px;
+  white-space: nowrap;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  flex-shrink: 0;
 }
 
-.card-tags {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 8px;
+.card-verdict.verdict-selected {
+  background: #dcfce7;
+  color: #15803d;
+  border: 1px solid #86efac;
 }
 
-.tag {
-    font-size: 0.75rem;
-    font-weight: 600;
-    padding: 4px 10px;
-    border-radius: 50px;
+.card-verdict.verdict-not-selected {
+  background: #fee2e2;
+  color: #dc2626;
+  border: 1px solid #fecaca;
 }
-/* ... your existing verdict and difficulty tag color classes ... */
-.tag-difficulty { background-color: #e9ecef; color: #495057; }
-.verdict-selected { background-color: #d1e7dd; color: #0f5132; }
-.verdict-not-selected { background-color: #f8d7da; color: #842029; }
-.verdict-in-progress { background-color: #fff3cd; color: #664d03; }
 
+.card-verdict.verdict-in-progress {
+  background: #fef3c7;
+  color: #d97706;
+  border: 1px solid #fde68a;
+}
+
+/* ====================================
+   META INFORMATION
+   ==================================== */
+
+.card-meta-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  padding: 12px 0;
+  border-top: 1px solid #f1f5f9;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.meta-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.875rem;
+}
+
+.meta-label {
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+.meta-value {
+  color: #475569;
+  font-weight: 600;
+}
+
+.meta-branch {
+  color: #94a3b8;
+  font-size: 0.8125rem;
+}
+
+.meta-difficulty {
+  padding: 2px 8px;
+  background: #f1f5f9;
+  color: #475569;
+  font-weight: 600;
+  border-radius: 4px;
+  font-size: 0.8125rem;
+}
+
+.meta-date {
+  color: #94a3b8;
+}
+
+/* ====================================
+   CARD FOOTER
+   ==================================== */
 
 .card-footer {
-    width: 100%;
-    margin-top: 20px;
-    padding-top: 20px;
-    border-top: 1px solid #f3f4f6;
-    display: flex;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Action Buttons */
+.card-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  font-size: 0.875rem;
+  color: #64748b;
+  background: #f8fafc;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  font-family: inherit;
+}
+
+.action-btn:hover {
+  color: #3b82f6;
+  background: #eff6ff;
+  border-color: #93c5fd;
+  transform: translateY(-1px);
+}
+
+.action-btn:active {
+  transform: translateY(0);
+}
+
+.action-btn svg {
+  font-size: 1rem;
+}
+
+.action-count {
+  font-weight: 600;
+}
+
+/* Liked State */
+.action-btn-liked {
+  color: #ef4444;
+  background: #fee2e2;
+  border-color: #fecaca;
+}
+
+.action-btn-liked:hover {
+  color: #dc2626;
+  background: #fecaca;
+  border-color: #ef4444;
+}
+
+/* Saved State */
+.action-btn-saved {
+  color: #3b82f6;
+  background: #eff6ff;
+  border-color: #93c5fd;
+}
+
+.action-btn-saved:hover {
+  color: #2563eb;
+  background: #dbeafe;
+  border-color: #3b82f6;
+}
+
+/* Read More Link */
+.card-read-more {
+  padding: 8px 16px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #3b82f6;
+  background: #eff6ff;
+  border: 1.5px solid #93c5fd;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.card-read-more:hover {
+  color: white;
+  background: #3b82f6;
+  border-color: #3b82f6;
+  transform: translateY(-1px);
+}
+
+/* ====================================
+   OWNER ACTIONS (Edit/Delete)
+   ==================================== */
+
+.card-owner-actions {
+  display: flex;
+  gap: 8px;
+  padding-top: 12px;
+  border-top: 1px solid #f1f5f9;
+}
+
+.btn-update,
+.btn-delete {
+  padding: 8px 16px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: 8px;
+  border: 1.5px solid;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.btn-update {
+  color: #3b82f6;
+  background: white;
+  border-color: #3b82f6;
+}
+
+.btn-update:hover {
+  color: white;
+  background: #3b82f6;
+  transform: translateY(-1px);
+}
+
+.btn-delete {
+  color: #ef4444;
+  background: white;
+  border-color: #ef4444;
+}
+
+.btn-delete:hover {
+  color: white;
+  background: #ef4444;
+  transform: translateY(-1px);
+}
+
+.btn-update:active,
+.btn-delete:active {
+  transform: translateY(0);
+}
+
+/* ====================================
+   RESPONSIVE DESIGN
+   ==================================== */
+
+/* Tablet */
+@media (max-width: 768px) {
+  .experience-card {
+    flex-direction: column;
+    padding: 16px;
+  }
+
+  .card-logo-container {
+    align-self: flex-start;
+  }
+
+  .company-logo {
+    width: 48px;
+    height: 48px;
+    font-size: 1.25rem;
+  }
+
+  .card-header {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .card-company-name {
+    font-size: 1.25rem;
+  }
+
+  .card-footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .card-actions {
     justify-content: space-between;
-    align-items: center;
+  }
+
+  .action-btn {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .card-read-more {
+    width: 100%;
+    text-align: center;
+  }
+
+  .card-owner-actions {
+    flex-direction: column;
+  }
+
+  .btn-update,
+  .btn-delete {
+    width: 100%;
+  }
 }
 
-.footer-actions {
-    display: flex;
-    gap: 20px;
-}
+/* Mobile */
+@media (max-width: 480px) {
+  .experience-card {
+    padding: 14px;
+  }
 
-.action-button {
-    background: none;
-    border: none;
-    color: var(--text-light, #6b7280);
-    display: flex;
-    align-items: center;
+  .card-company-name {
+    font-size: 1.125rem;
+  }
+
+  .card-role {
+    font-size: 0.9375rem;
+  }
+
+  .card-meta-info {
+    flex-direction: column;
     gap: 8px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    padding: 0;
-    transition: color 0.2s ease;
-}
+  }
 
-.action-button:hover {
-    color: var(--primary-color, #2563eb);
-}
-
-.card-readmore {
-    color: var(--primary-color, #2563eb);
-    text-decoration: none;
-    font-weight: 600;
-    font-family: 'Poppins', sans-serif;
-}
-
-.comment-button{
-    text-decoration: none;
-    color: var(--text-light, #6b7280);
-}
-
-.action-button.saved,
-.action-button.saved:hover {
-    color: var(--primary-color, #2563eb); /* Blue color for a saved bookmark */
-}
-
-.action-button.liked,
-.action-button.liked:hover {
-    color: var(--primary-color, #2563eb); /* Blue color for a saved bookmark */
-}
-
-.comment-button:hover{
-    color: var(--primary-color, #2563eb)
+  .meta-row {
+    width: 100%;
+  }
 }

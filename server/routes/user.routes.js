@@ -60,7 +60,8 @@ router.post('/login', async (req, res) => {
             _id: user._id,
             name: user.name,
             email: user.email,
-            role : user.role
+            role : user.role,
+            saves : user.saves
         };
         console.log(userResponse)
         res.status(200).json({ success: true, token, user: userResponse });

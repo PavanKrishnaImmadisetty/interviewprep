@@ -1,78 +1,106 @@
-/* Main container */
-.interviews-container {
-  max-width: 900px;
+/* ====================================
+   MODERN INTERVIEW PAGE STYLES
+   Clean, Professional, Blue Theme
+   ==================================== */
+
+/* Container */
+.interview-container {
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 2rem 1rem;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 40px 24px;
+  min-height: 100vh;
+  background: #f8fafc;
 }
 
-/* Page title */
-.interviews-title {
-  font-size: 1.8rem;
-  font-weight: 600;
-  color: #1f2937; /* gray-800 */
+/* Page Header */
+.interview-container header {
+  margin-bottom: 32px;
   text-align: center;
-  margin-bottom: 1.5rem;
 }
 
-/* Filter bar */
-.filterbar-wrapper {
-  background: #f9fafb; /* light gray */
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  padding: 0.75rem 1rem;
-  margin-bottom: 1.5rem;
-
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  align-items: center;
+.interview-title {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0;
+  letter-spacing: -0.02em;
 }
 
-/* Filter selects */
-.filterbar-wrapper select {
-  padding: 0.35rem 0.75rem;
-  border: 1px solid #d1d5db;
-  border-radius: 6px;
-  font-size: 0.9rem;
+/* Filter Section */
+.filter-section {
   background: white;
-  cursor: pointer;
-  transition: border 0.2s ease, box-shadow 0.2s ease;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 32px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e2e8f0;
 }
 
-.filterbar-wrapper select:focus {
-  border-color: #2563eb; /* blue */
-  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
-  outline: none;
-}
-
-/* Clear button */
-.filterbar-wrapper button {
-  padding: 0.35rem 0.9rem;
-  background: #2563eb;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  font-size: 0.85rem;
-  cursor: pointer;
-  transition: background 0.2s ease;
-}
-
-.filterbar-wrapper button:hover {
-  background: #1e40af;
-}
-
-/* Posts list - vertical layout */
+/* Posts List */
 .posts-list {
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
+  gap: 20px;
 }
 
-/* Empty state */
-.posts-list p {
+/* Loading State */
+.loading-message {
   text-align: center;
+  padding: 80px 20px;
+  font-size: 1.125rem;
+  color: #64748b;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+/* Empty State */
+.empty-message {
+  text-align: center;
+  padding: 60px 20px;
   font-size: 1rem;
-  color: #6b7280;
-  margin-top: 2rem;
+  color: #64748b;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  border: 2px dashed #e2e8f0;
+}
+
+/* ====================================
+   RESPONSIVE DESIGN
+   ==================================== */
+
+/* Tablet */
+@media (max-width: 768px) {
+  .interview-container {
+    padding: 24px 16px;
+  }
+
+  .interview-title {
+    font-size: 1.875rem;
+  }
+
+  .filter-section {
+    padding: 20px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .interview-container {
+    padding: 20px 12px;
+  }
+
+  .interview-title {
+    font-size: 1.5rem;
+  }
+
+  .filter-section {
+    padding: 16px;
+    margin-bottom: 24px;
+  }
+
+  .posts-list {
+    gap: 16px;
+  }
 }

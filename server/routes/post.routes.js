@@ -1,6 +1,7 @@
 import express from 'express';
 import ExperienceModel from '../model/post.model.js'; // 1. Use the new model
 import authMiddleware from '../middleware/auth.middleware.js';
+import CommentModel from '../model/comment.model.js'
 import userModel from '../model/user.model.js';
 
 const router = express.Router();
@@ -23,7 +24,7 @@ router.post('/postexperience', authMiddleware, async (req, res) => {
         await newExperience.save();
         res.status(201).json({ success: true, experience: newExperience });
     } catch (error) {
-        console.log(error.message)
+        
         res.status(500).json({ success: false, message: error.message });
     }
 });
@@ -42,7 +43,11 @@ router.put('/experiences/:id', authMiddleware, async (req, res) => {
 
         const updatedExperience = await ExperienceModel.findByIdAndUpdate(
             req.params.id,
-            req.body, // Pass the whole body to update all fields
+            {
+                ...req.body,
+                status : "Pending"
+            },
+             // Pass the whole body to update all fields
             { new: true }
         );
         res.status(200).json({ success: true, experience: updatedExperience });
@@ -63,6 +68,12 @@ router.delete('/experiences/:id', authMiddleware, async (req, res) => {
             return res.status(403).json({ success: false, message: 'User not authorized' });
         }
 
+        await userModel.updateMany(
+           {saves : req.params.id} ,
+           {$pull : {saves : req.params.id}}
+        )
+
+        await CommentModel.deleteMany({experience : req.params.id})
         await ExperienceModel.findByIdAndDelete(req.params.id);
         res.status(200).json({ success: true, message: 'Experience deleted successfully' });
     } catch (error) {
@@ -76,6 +87,9 @@ router.get('/experiences',authMiddleware, async (req, res) => {
         const experiences = await ExperienceModel.find({status : 'Approved'})
             .populate('author', 'name branch')
             .sort({ createdAt: -1 });
+
+        
+        
         res.status(200).json({ success: true, experiences });
     } catch (error) {
         res.status(500).json({ success: false, message: 'Server Error' });
@@ -92,7 +106,7 @@ router.get('/experiences/:id',authMiddleware, async (req, res) => {
         }
         res.status(200).json({ success: true, experience });
     } catch (error) {
-        console.log(error.message)
+        
         res.status(500).json({ success: false, message: 'Server Error' });
     }
 });
@@ -143,34 +157,31 @@ router.put('/experiences/:id/like', authMiddleware, async (req, res) => {
 });
 
 
+// routes/experience.routes.js (or wherever the save route lives)
 router.put('/experiences/:id/save', authMiddleware, async (req, res) => {
-    try {
-        const  id  = req.params.id;
-        const user = await userModel.findById(req.user.id);
+  try {
+    const id = req.params.id;
+    const user = await userModel.findById(req.user.id);
+    if (!user) return res.status(404).json({ success: false, message: 'User not found' });
 
-        if (!user) {
-            return res.status(404).json({ message: 'User not found' });
-        }
-        
-        const hasSaved = user.saves.includes(id);
+    const hasSaved = user.saves.some(s => String(s) === String(id));
 
-        if (hasSaved) {
-            // If already saved, remove it (unsave)
-            user.saves.pull(id);
-        } else {
-            // If not saved, add it
-            user.saves.push(id);
-        }
-
-        await user.save();
-        // Return the updated user object (without password)
-        const updatedUser = await ExperienceModel.findById(user._id).select('-password');
-        res.status(200).json({ success: true, user: updatedUser });
-
-    } catch (error) {
-        
-        res.status(500).json({success:false, message: 'server error' });
+    if (hasSaved) {
+      user.saves.pull(id);
+    } else {
+      user.saves.push(id);
     }
+
+    await user.save();
+
+    // Return the updated user (no password)
+    const updatedUser = await userModel.findById(user._id).select('-password -__v');
+    return res.status(200).json({ success: true, user: updatedUser });
+  } catch (error) {
+    
+    return res.status(500).json({ success: false, message: error.message });
+  }
 });
+
 
 export default router;

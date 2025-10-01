@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import '../Styles/ExperienceForm.css'; // Make sure your CSS file is named this
+import '../Styles/ExperienceForm.css';
 
 // --- Constants ---
-const Applied_At = ["On-campus", "Of-campus"] 
+const Applied_At = ["On-campus", "Off-campus"] 
 const VERDICT_OPTIONS = ["Selected", "Not Selected", "In Progress"];
 const DIFFICULTY_OPTIONS = ["Easy", "Medium", "Hard"];
 const ROUND_TYPE_OPTIONS = ["Online Assessment", "Technical Round", "Managerial Round", "HR Round"];
@@ -22,7 +22,7 @@ const INITIAL_STATE = {
     role: 'Software Engineer',
     location: '',
     interviewDate: '',
-    appliedAt : 'On-campus',
+    appliedAt: 'On-campus',
     verdict: 'Selected',
     difficulty: 'Medium',
     rounds: [{ roundType: 'Online Assessment', description: '' }],
@@ -67,8 +67,6 @@ function ExperienceForm({ initialData, onSubmit, isEditing = false }) {
         onSubmit(formData);
     };
 
-    
-
     const formatDateForInput = (dateString) => {
         if (!dateString) return '';
         const date = new Date(dateString);
@@ -89,70 +87,170 @@ function ExperienceForm({ initialData, onSubmit, isEditing = false }) {
                         <p>{isEditing ? 'Update the details of your interview process.' : 'Help the community by sharing your journey!'}</p>
                     </div>
 
-                    <div className="form-grid">
-                        <div className="form-group">
-                            <label htmlFor="companyName">Company Name</label>
-                            <input type="text" name="companyName" id="companyName" value={formData.companyName} onChange={handleChange} className="form-input" required />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="role">Role / Position</label>
-                            <input type="text" name="role" id="role" value={formData.role} onChange={handleChange} className="form-input" required />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="location">Location</label>
-                            <input type="text" name="location" id="location" value={formData.location} onChange={handleChange} className="form-input" />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="interviewDate">Interview Date</label>
-                            <input type="date" name="interviewDate" id="interviewDate" value={date} onChange={handleChange} className="form-input" required />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="appliedAt">Applied at</label>
-                            <select name="branch" id="branch" value={formData.appliedAt} onChange={handleChange} className="form-input" >
-                                {Applied_At.map(opt => <option key={opt} value={opt}>{opt}</option>)}
-                            </select>
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="verdict">Verdict</label>
-                            <select name="verdict" id="verdict" value={formData.verdict} onChange={handleChange} className="form-input" required>
-                                {VERDICT_OPTIONS.map(opt => <option key={opt} value={opt}>{opt}</option>)}
-                            </select>
+                    <div className="form-section">
+                        <h2>Basic Information</h2>
+                        <div className="form-grid">
+                            <div className="form-group">
+                                <label htmlFor="companyName">Company Name *</label>
+                                <input 
+                                    type="text" 
+                                    name="companyName" 
+                                    id="companyName" 
+                                    value={formData.companyName} 
+                                    onChange={handleChange} 
+                                    className="form-input" 
+                                    placeholder="e.g., Google, Microsoft" 
+                                    required 
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="role">Role / Position *</label>
+                                <input 
+                                    type="text" 
+                                    name="role" 
+                                    id="role" 
+                                    value={formData.role} 
+                                    onChange={handleChange} 
+                                    className="form-input" 
+                                    placeholder="e.g., Software Engineer" 
+                                    required 
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="location">Location</label>
+                                <input 
+                                    type="text" 
+                                    name="location" 
+                                    id="location" 
+                                    value={formData.location} 
+                                    onChange={handleChange} 
+                                    className="form-input" 
+                                    placeholder="e.g., Bangalore, Remote" 
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="interviewDate">Interview Date *</label>
+                                <input 
+                                    type="date" 
+                                    name="interviewDate" 
+                                    id="interviewDate" 
+                                    value={date} 
+                                    onChange={handleChange} 
+                                    className="form-input" 
+                                    required 
+                                />
+                            </div>
                         </div>
                     </div>
 
                     <div className="form-section">
-                        <label htmlFor="difficulty">Overall Difficulty</label>
-                        <select name="difficulty" id="difficulty" value={formData.difficulty} onChange={handleChange} className="form-input">
-                            {DIFFICULTY_OPTIONS.map(opt => <option key={opt} value={opt}>{opt}</option>)}
-                        </select>
+                        <h2>Interview Details</h2>
+                        <div className="form-grid-three">
+                            <div className="form-group">
+                                <label htmlFor="appliedAt">Applied At *</label>
+                                <select 
+                                    name="appliedAt" 
+                                    id="appliedAt" 
+                                    value={formData.appliedAt} 
+                                    onChange={handleChange} 
+                                    className="form-input"
+                                >
+                                    {Applied_At.map(opt => <option key={opt} value={opt}>{opt}</option>)}
+                                </select>
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="verdict">Verdict *</label>
+                                <select 
+                                    name="verdict" 
+                                    id="verdict" 
+                                    value={formData.verdict} 
+                                    onChange={handleChange} 
+                                    className="form-input" 
+                                    required
+                                >
+                                    {VERDICT_OPTIONS.map(opt => <option key={opt} value={opt}>{opt}</option>)}
+                                </select>
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="difficulty">Overall Difficulty *</label>
+                                <select 
+                                    name="difficulty" 
+                                    id="difficulty" 
+                                    value={formData.difficulty} 
+                                    onChange={handleChange} 
+                                    className="form-input"
+                                >
+                                    {DIFFICULTY_OPTIONS.map(opt => <option key={opt} value={opt}>{opt}</option>)}
+                                </select>
+                            </div>
+                        </div>
                     </div>
 
                     <div className="form-section">
-                        <h2>Interview Rounds</h2>
+                        <div className="section-header">
+                            <h2>Interview Rounds</h2>
+                            <p className="section-description">Describe each round of your interview process</p>
+                        </div>
                         {formData.rounds.map((round, index) => (
                             <div key={index} className="round-card">
-                                <p className="round-title">Round {index + 1}</p>
+                                <div className="round-header">
+                                    <span className="round-number">Round {index + 1}</span>
+                                    {formData.rounds.length > 1 && (
+                                        <button 
+                                            type="button" 
+                                            onClick={() => removeRound(index)} 
+                                            className="remove-round-btn"
+                                            title="Remove this round"
+                                        >
+                                            &times;
+                                        </button>
+                                    )}
+                                </div>
                                 <div className="form-group">
                                     <label htmlFor={`roundType-${index}`}>Round Type</label>
-                                    <select name="roundType" id={`roundType-${index}`} value={round.roundType} onChange={(e) => handleRoundChange(index, e)} className="form-input">
+                                    <select 
+                                        name="roundType" 
+                                        id={`roundType-${index}`} 
+                                        value={round.roundType} 
+                                        onChange={(e) => handleRoundChange(index, e)} 
+                                        className="form-input"
+                                    >
                                         {ROUND_TYPE_OPTIONS.map(opt => <option key={opt} value={opt}>{opt}</option>)}
                                     </select>
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor={`description-${index}`}>Description</label>
-                                    <textarea name="description" id={`description-${index}`} value={round.description} onChange={(e) => handleRoundChange(index, e)} rows="4" className="form-input"></textarea>
+                                    <textarea 
+                                        name="description" 
+                                        id={`description-${index}`} 
+                                        value={round.description} 
+                                        onChange={(e) => handleRoundChange(index, e)} 
+                                        rows="4" 
+                                        className="form-input"
+                                        placeholder="Describe what happened in this round, questions asked, topics covered..."
+                                    ></textarea>
                                 </div>
-                                {formData.rounds.length > 1 && (
-                                    <button type="button" onClick={() => removeRound(index)} className="remove-round-btn">&times;</button>
-                                )}
                             </div>
                         ))}
-                        <button type="button" onClick={addRound} className="add-round-btn">+ Add Another Round</button>
+                        <button type="button" onClick={addRound} className="add-round-btn">
+                            + Add Another Round
+                        </button>
                     </div>
                     
                     <div className="form-section">
-                        <label htmlFor="tips">Tips / Resources</label>
-                        <textarea name="tips" id="tips" value={formData.tips} onChange={handleChange} rows="5" className="form-input"></textarea>
+                        <h2>Additional Tips & Resources</h2>
+                        <div className="form-group">
+                            <label htmlFor="tips">Share your preparation tips, helpful resources, or advice</label>
+                            <textarea 
+                                name="tips" 
+                                id="tips" 
+                                value={formData.tips} 
+                                onChange={handleChange} 
+                                rows="5" 
+                                className="form-input"
+                                placeholder="Share any preparation tips, resources, study materials, or advice that helped you..."
+                            ></textarea>
+                        </div>
                     </div>
 
                     <div className="form-actions">

@@ -1,140 +1,410 @@
+/* Design Variables */
 :root {
-    --primary-color: #2563eb;
+    --primary-blue: #2563eb;
+    --primary-blue-dark: #1e40af;
+    --primary-blue-light: #3b82f6;
     --text-dark: #1f2937;
-    --text-light: #6b7280;
-    --border-color: #e5e7eb;
-    --background-light: #f8f9fa;
-    --navbar-height: 70px; /* Make sure this matches your navbar's height */
+    --text-gray: #6b7280;
+    --text-light: #9ca3af;
+    --bg-white: #ffffff;
+    --bg-gray: #f9fafb;
+    --bg-light-blue: #eff6ff;
+    --border-gray: #e5e7eb;
+    --success-green: #10b981;
+    --success-bg: #d1fae5;
+    --error-red: #ef4444;
+    --error-bg: #fee2e2;
+    --warning-yellow: #f59e0b;
+    --warning-bg: #fef3c7;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
 }
 
-/* --- Main Layout --- */
-.single-experience-layout {
+/* Loading and Error Messages */
+.loading-message,
+.error-message {
     max-width: 1200px;
-    margin: 40px auto;
-    padding: 0 2rem;
-    display: grid;
-    grid-template-columns: 2fr 1fr; /* 2/3 for content, 1/3 for sidebar */
-    gap: 3rem;
-}
-
-/* --- Main Content Column (Left) --- */
-.experience-main-content {
-    background-color: #fff;
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    padding: 2.5rem;
-}
-
-.main-header {
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: 1.5rem;
-    margin-bottom: 2rem;
-}
-
-.main-company-name {
-    font-size: 1.5rem;
-    color: var(--text-dark);
-    margin: 0;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    text-align: center;
+    border-radius: 8px;
     font-weight: 500;
 }
 
-.main-role-title {
-    font-family: 'Poppins', sans-serif;
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--text-dark);
-    line-height: 1.2;
-    margin: 0.5rem 0 0 0;
+.loading-message {
+    background-color: var(--bg-light-blue);
+    color: var(--primary-blue);
 }
 
-.experience-rounds h2,
-.experience-tips h2 {
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.5rem;
-    color: var(--text-dark);
-    margin-top: 2.5rem;
+.error-message {
+    background-color: var(--error-bg);
+    color: var(--error-red);
+}
+
+/* Main Layout */
+.single-experience-layout {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 2rem;
+}
+
+/* Main Content Area */
+.experience-main-content {
+    min-width: 0;
+}
+
+/* Main Header */
+.main-header {
+    background-color: var(--bg-white);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-gray);
     margin-bottom: 1.5rem;
 }
 
+.main-company-name {
+    color: var(--primary-blue);
+    font-weight: 600;
+    font-size: 0.938rem;
+    margin: 0 0 0.5rem 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.main-role-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin: 0 0 0.75rem 0;
+    line-height: 1.2;
+}
+
+.main-shared-by {
+    color: var(--text-gray);
+    font-size: 0.938rem;
+    margin: 0;
+}
+
+/* Interview Rounds Section */
+.experience-rounds {
+    background-color: var(--bg-white);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-gray);
+    margin-bottom: 1.5rem;
+}
+
+.experience-rounds h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin: 0 0 1.5rem 0;
+}
+
 .round-item {
-    margin-bottom: 2.5rem;
-    padding-left: 1.5rem;
-    border-left: 3px solid var(--primary-color);
+    padding: 1.5rem;
+    background-color: var(--bg-gray);
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    border: 1px solid var(--border-gray);
+}
+
+.round-item:last-child {
+    margin-bottom: 0;
 }
 
 .round-item h3 {
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.2rem;
+    font-size: 1.125rem;
     font-weight: 600;
     color: var(--text-dark);
+    margin: 0 0 1rem 0;
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: 0.5rem;
 }
 
 .round-icon {
-    color: var(--primary-color);
+    color: var(--primary-blue);
+    font-size: 1rem;
 }
 
-.round-description,
-.experience-tips div {
-    font-family: 'Roboto', sans-serif;
-    color: #34495e;
-    font-size: 1.1rem;
-    line-height: 1.8;
+.round-description {
+    color: var(--text-gray);
+    line-height: 1.6;
+    margin-bottom: 1rem;
 }
-.round-description img,
-.experience-tips img {
-    max-width: 100%;
-    height: auto;
+
+.round-description p {
+    margin: 0 0 0.75rem 0;
+}
+
+.round-description ul,
+.round-description ol {
+    margin: 0.75rem 0;
+    padding-left: 1.5rem;
+}
+
+.round-description li {
+    margin-bottom: 0.5rem;
+    color: var(--text-gray);
+}
+
+.round-links {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-gray);
+}
+
+.round-links strong {
+    color: var(--text-dark);
+    font-size: 0.938rem;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.round-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.round-links li {
+    margin-bottom: 0.5rem;
+}
+
+.round-links a {
+    color: var(--primary-blue);
+    text-decoration: none;
+    font-size: 0.875rem;
+    transition: var(--transition);
+    word-break: break-all;
+}
+
+.round-links a:hover {
+    color: var(--primary-blue-dark);
+    text-decoration: underline;
+}
+
+/* Tips Section */
+.experience-tips {
+    background-color: var(--bg-white);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-gray);
+    margin-bottom: 1.5rem;
+}
+
+.experience-tips h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin: 0 0 1rem 0;
+}
+
+.experience-tips p {
+    color: var(--text-gray);
+    line-height: 1.6;
+    margin-bottom: 0.75rem;
+}
+
+.experience-tips ul,
+.experience-tips ol {
+    margin: 0.75rem 0;
+    padding-left: 1.5rem;
+}
+
+.experience-tips li {
+    margin-bottom: 0.5rem;
+    color: var(--text-gray);
+}
+
+/* Comments Section */
+.comments-section {
+    background-color: var(--bg-white);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-gray);
+}
+
+.comments-section h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin: 0 0 1.5rem 0;
+}
+
+/* Comment Form */
+.comment-form {
+    margin-bottom: 2rem;
+}
+
+.comment-form textarea {
+    width: 100%;
+    padding: 0.875rem;
+    border: 1px solid var(--border-gray);
     border-radius: 8px;
-    margin: 20px 0;
+    font-size: 0.938rem;
+    font-family: inherit;
+    resize: vertical;
+    transition: var(--transition);
+    margin-bottom: 0.75rem;
 }
 
+.comment-form textarea:focus {
+    outline: none;
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
 
-/* --- Sidebar Column (Right) --- */
+.comment-form button {
+    background-color: var(--primary-blue);
+    color: white;
+    padding: 0.625rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.938rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.comment-form button:hover {
+    background-color: var(--primary-blue-dark);
+}
+
+.comment-login-prompt {
+    padding: 1rem;
+    background-color: var(--bg-light-blue);
+    border-radius: 8px;
+    color: var(--text-gray);
+    margin-bottom: 2rem;
+}
+
+.comment-login-prompt a {
+    color: var(--primary-blue);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.comment-login-prompt a:hover {
+    text-decoration: underline;
+}
+
+/* Comments List */
+.comments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.comment-item {
+    display: flex;
+    gap: 0.875rem;
+    padding: 1rem;
+    background-color: var(--bg-gray);
+    border-radius: 8px;
+    border: 1px solid var(--border-gray);
+}
+
+.comment-author-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-blue), var(--primary-blue-light));
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+.comment-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.comment-author-name {
+    font-weight: 600;
+    color: var(--text-dark);
+    font-size: 0.938rem;
+    margin: 0 0 0.375rem 0;
+}
+
+.comment-text {
+    color: var(--text-gray);
+    line-height: 1.5;
+    margin: 0 0 0.5rem 0;
+    word-wrap: break-word;
+}
+
+.delete-comment-btn {
+    background: none;
+    border: none;
+    color: var(--error-red);
+    font-size: 0.813rem;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 0;
+    transition: var(--transition);
+}
+
+.delete-comment-btn:hover {
+    text-decoration: underline;
+}
+
+/* Sidebar */
 .experience-sidebar {
-    position: sticky;
-    top: calc(var(--navbar-height) + 40px); /* Stick below the navbar */
-    align-self: start; /* Prevents stretching */
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
 }
 
 .sidebar-card {
-    background-color: #fff;
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
+    background-color: var(--bg-white);
     padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-gray);
 }
 
 .sidebar-card h3 {
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.1rem;
-    margin: 0 0 1rem 0;
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: 0.75rem;
-}
-
-.edit-button {
-    display: block;
-    width: 100%;
-    background-color: var(--background-light);
+    font-size: 1.125rem;
+    font-weight: 700;
     color: var(--text-dark);
-    border: 1px solid var(--border-color);
-    padding: 0.75rem;
-    border-radius: 6px;
-    text-align: center;
-    text-decoration: none;
-    font-weight: 500;
-    margin-bottom: 1.5rem;
-    transition: background-color 0.2s ease;
-}
-.edit-button:hover {
-    background-color: #e9ecef;
+    margin: 0 0 1.25rem 0;
 }
 
+/* Edit Button */
+.edit-button {
+    width: 100%;
+    background-color: var(--primary-blue);
+    color: white;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.938rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    margin-bottom: 1.25rem;
+}
+
+.edit-button:hover {
+    background-color: var(--primary-blue-dark);
+}
+
+/* Details List */
 .details-list {
     display: flex;
     flex-direction: column;
@@ -143,179 +413,160 @@
 
 .detail-item {
     display: flex;
+    gap: 0.75rem;
     align-items: flex-start;
-    gap: 1rem;
 }
 
 .detail-icon {
-    font-size: 1.1rem;
-    color: var(--text-light);
-    margin-top: 4px;
+    color: var(--primary-blue);
+    font-size: 1.125rem;
+    margin-top: 0.125rem;
+    flex-shrink: 0;
+}
+
+.detail-item > div {
+    flex: 1;
 }
 
 .detail-item strong {
-    font-size: 0.875rem;
+    display: block;
+    font-size: 0.813rem;
     color: var(--text-light);
+    margin-bottom: 0.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
+
 .detail-item p {
-    font-size: 1rem;
+    font-size: 0.938rem;
     color: var(--text-dark);
-    margin: 2px 0 0 0;
+    margin: 0;
     font-weight: 500;
 }
-.tag { font-size: 0.8rem; font-weight: 500; padding: 5px 12px; border-radius: 50px; }
-/* ... your existing tag colors ... */
 
+/* Tags */
+.tag {
+    display: inline-block;
+    padding: 0.375rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.813rem;
+    font-weight: 600;
+}
+
+.verdict-selected {
+    background-color: var(--success-bg);
+    color: var(--success-green);
+}
+
+.verdict-not-selected {
+    background-color: var(--error-bg);
+    color: var(--error-red);
+}
+
+.verdict-in-progress {
+    background-color: var(--warning-bg);
+    color: var(--warning-yellow);
+}
+
+.tag-difficulty {
+    background-color: var(--bg-light-blue);
+    color: var(--primary-blue);
+}
+
+/* Author Section */
 .author-details {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 0.875rem;
 }
 
 .author-avatar {
     width: 48px;
     height: 48px;
     border-radius: 50%;
-    background-color: var(--primary-color);
-    color: #fff;
+    background: linear-gradient(135deg, var(--primary-blue), var(--primary-blue-light));
+    color: white;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.5rem;
-    font-weight: 700;
+    font-weight: 600;
+    font-size: 1.125rem;
     flex-shrink: 0;
 }
 
-
-
-
-.author-info strong { font-size: 1rem; color: var(--text-dark); }
-.author-info p { font-size: 0.875rem; color: var(--text-light); margin: 2px 0 0 0; }
-
-/* --- Responsive Styles --- */
-@media screen and (max-width: 960px) {
-    .single-experience-layout {
-        grid-template-columns: 1fr; /* Stack columns on mobile */
-    }
-    .experience-sidebar {
-        position: static; /* Unstick the sidebar */
-        top: auto;
-    }
+.author-info strong {
+    display: block;
+    font-size: 0.938rem;
+    color: var(--text-dark);
+    margin-bottom: 0.25rem;
 }
 
-/* In SingleExperiencePage.css */
-
-/* --- Main Comments Section --- */
-.comments-section {
-    margin-top: 50px;
-    padding-top: 30px;
-    border-top: 1px solid var(--border-color, #e5e7eb);
-}
-
-.comments-section h2 {
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.8rem;
-    color: var(--text-dark, #1f2937);
-    margin-bottom: 25px;
-}
-
-/* --- Comment Form --- */
-.comment-form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-bottom: 40px;
-}
-
-.comment-form textarea {
-    width: 100%;
-    min-height: 80px;
-    padding: 12px;
-    border: 1px solid #ced4da;
-    border-radius: 6px;
-    font-size: 1rem;
-    font-family: 'Roboto', sans-serif;
-    resize: vertical;
-    box-sizing: border-box;
-    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
-}
-.comment-form textarea:focus {
-    border-color: var(--primary-color, #2563eb);
-    outline: 0;
-    box-shadow: 0 0 0 0.2rem rgba(37, 99, 235, 0.25);
-}
-
-.comment-form button {
-    align-self: flex-end;
-    padding: 10px 25px;
-    border-radius: 6px;
-    background-color: var(--primary-color, #2563eb);
-    color: #fff;
-    font-weight: 500;
-    font-family: 'Poppins', sans-serif;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-}
-.comment-form button:hover {
-    background-color: var(--primary-hover, #1d4ed8);
-}
-
-.comment-login-prompt {
-    text-align: center;
-    padding: 20px;
-    background-color: var(--background-light, #f8f9fa);
-    border-radius: 8px;
-    margin-bottom: 40px;
-}
-.comment-login-prompt a {
-    color: var(--primary-color, #2563eb);
-    font-weight: 600;
-    text-decoration: none;
-}
-
-/* --- List of Comments --- */
-.comments-list {
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
-}
-
-.comment-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 15px;
-}
-
-.comment-author-avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: #dee2e6;
-    color: var(--text-light, #6b7280);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
-    font-weight: 700;
-    flex-shrink: 0; /* Prevents the avatar from shrinking */
-}
-
-.comment-content {
-    flex-grow: 1;
-}
-
-.comment-author-name {
-    font-weight: 600;
-    font-family: 'Poppins', sans-serif;
-    margin: 0 0 5px 0;
-    color: var(--text-dark, #1f2937);
-}
-
-.comment-text {
+.author-info p {
+    font-size: 0.813rem;
+    color: var(--text-gray);
     margin: 0;
-    color: #34495e;
-    line-height: 1.6;
-    /* Allows long words/links to wrap */
-    word-break: break-word;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 992px) {
+    .single-experience-layout {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .experience-sidebar {
+        order: -1;
+    }
+
+    .sidebar-card {
+        padding: 1.25rem;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .single-experience-layout {
+        margin: 1rem auto;
+        padding: 0 1rem;
+    }
+
+    .main-header {
+        padding: 1.5rem;
+    }
+
+    .main-role-title {
+        font-size: 1.5rem;
+    }
+
+    .experience-rounds,
+    .experience-tips,
+    .comments-section {
+        padding: 1.5rem;
+    }
+
+    .experience-rounds h2,
+    .experience-tips h2,
+    .comments-section h2 {
+        font-size: 1.25rem;
+    }
+
+    .round-item {
+        padding: 1.25rem;
+    }
+
+    .comment-item {
+        padding: 0.875rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .main-role-title {
+        font-size: 1.25rem;
+    }
+
+    .comment-author-avatar,
+    .author-avatar {
+        width: 36px;
+        height: 36px;
+        font-size: 0.938rem;
+    }
 }

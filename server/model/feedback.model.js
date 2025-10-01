@@ -6,7 +6,7 @@ const feedbackSchema = new mongoose.Schema({
     feedbacktype : {
         type : String,
         required : true,
-        enum : ['Bug Report', 'Feature Request', 'General comment']
+        enum : ['Bug Report', 'Feature Request', 'General Comment']
     },
 
     message : {

@@ -1,105 +1,159 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import ExperienceCard from '../components/ExperienceCard.js'; 
-import '../Styles/HomePage.css'; 
-import { useAuth } from '../context/AuthContext.js';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaUserFriends, FaBuilding, FaClipboardList } from "react-icons/fa";
+import { FaUserFriends, FaBuilding, FaClipboardList, FaArrowRight, FaCheckCircle } from "react-icons/fa";
+import '../Styles/HomePage.css';
+import { useAuth } from '../context/AuthContext.js';
 
 const HomePage = () => {
-  const [experiences, setExperiences] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const { auth } = useAuth();
 
-  useEffect(() => {
-    const fetchExperiences = async () => {
-      try {
-        const config = { headers: { Authorization: `Bearer ${auth.token}` } };
-        const response = await axios.get('http://localhost:5000/api/experiences', config);
-        setExperiences(response.data.experiences);
-      } catch (err) {
-        setError('Failed to fetch experiences. Please try again later.');
-        console.error("Failed to fetch experiences:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchExperiences();
-  }, [auth.token]);
-
-  if (loading) return <div className="loading-message">Loading...</div>;
-  if (error) return <div className="error-message">{error}</div>;
-
-  const totalExperiences = experiences.length;
-  const uniqueCompanies = new Set(experiences.map(exp => exp.companyName)).size;
-  const contributors = new Set(experiences.map(exp => exp.author?.name || 'Anonymous')).size;
-
-  const featuredExperiences = experiences.slice(0, 3);
+  const totalExperiences = 120; 
+  const uniqueCompanies = 45;
+  const contributors = 60;
 
   return (
     <div className="homepage-container">
-      
+
       {/* Hero Section */}
       <section className="hero-section">
-        <div className="hero-text">
-          <h1>Learn From Real Interviews 🚀</h1>
-          <p>
-            Explore real stories from students who cracked (and failed) interviews.  
-            Save time, learn strategies, and prepare smarter for your dream company.
+        <div className="hero-content">
+          <div className="hero-badge">
+            <span className="badge-dot"></span>
+            Your Interview Prep Companion
+          </div>
+          <h1 className="hero-title">
+            Learn From Real <span className="highlight">Interview Experiences</span>
+          </h1>
+          <p className="hero-description">
+            Explore authentic stories from students who cracked (and failed) interviews.  
+            Save time, learn proven strategies, and prepare smarter for your dream company.
           </p>
           <div className="hero-buttons">
-            <Link to="/interviews" className="cta-button">Explore Experiences</Link>
-            {!auth.user && <Link to="/login" className="cta-button secondary">Login / Signup</Link>}
+            {auth.user ? (
+              <Link to="/interviews" className="btn btn-primary btn-lg">
+                Explore Experiences
+                <FaArrowRight />
+              </Link>
+            ) : (
+              <>
+                <Link to="/login" className="btn btn-primary btn-lg">
+                  Get Started
+                  <FaArrowRight />
+                </Link>
+                <Link to="/signup" className="btn btn-secondary btn-lg">
+                  Sign Up Free
+                </Link>
+              </>
+            )}
           </div>
-        </div>
-        <div className="hero-illustration">
-          <img src="/assets/hero-illustration.svg" alt="Interview prep" />
+          
+          {/* Trust Indicators */}
+          <div className="hero-stats-inline">
+            <div className="stat-inline">
+              <FaCheckCircle />
+              <span>{totalExperiences}+ Real Experiences</span>
+            </div>
+            <div className="stat-inline">
+              <FaCheckCircle />
+              <span>{contributors}+ Active Contributors</span>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* Stats Section */}
       <section className="stats-section">
-        <div className="stat-card">
-          <FaClipboardList className="stat-icon"/>
-          <h2>{totalExperiences}+</h2>
-          <p>Experiences</p>
-        </div>
-        <div className="stat-card">
-          <FaBuilding className="stat-icon"/>
-          <h2>{uniqueCompanies}+</h2>
-          <p>Companies</p>
-        </div>
-        <div className="stat-card">
-          <FaUserFriends className="stat-icon"/>
-          <h2>{contributors}+</h2>
-          <p>Contributors</p>
+        <div className="stats-container">
+          <div className="stat-card">
+            <div className="stat-icon-wrapper">
+              <FaClipboardList className="stat-icon"/>
+            </div>
+            <div className="stat-content">
+              <h3 className="stat-number">{totalExperiences}+</h3>
+              <p className="stat-label">Interview Experiences</p>
+            </div>
+          </div>
+          
+          <div className="stat-card">
+            <div className="stat-icon-wrapper">
+              <FaBuilding className="stat-icon"/>
+            </div>
+            <div className="stat-content">
+              <h3 className="stat-number">{uniqueCompanies}+</h3>
+              <p className="stat-label">Top Companies</p>
+            </div>
+          </div>
+          
+          <div className="stat-card">
+            <div className="stat-icon-wrapper">
+              <FaUserFriends className="stat-icon"/>
+            </div>
+            <div className="stat-content">
+              <h3 className="stat-number">{contributors}+</h3>
+              <p className="stat-label">Active Contributors</p>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Featured Section */}
-      <section className="featured-section">
-        <h2>Latest Experiences ✨</h2>
-        <div className="posts-list">
-          {featuredExperiences.length > 0 ? (
-            featuredExperiences.map(experience => (
-              <ExperienceCard key={experience._id} experience={experience} />
-            ))
-          ) : (
-            <p>No experiences yet. Be the first to share!</p>
-          )}
-        </div>
-        <div className="view-all-btn">
-          <Link to="/interviews">View All →</Link>
+      {/* Why Section */}
+      <section className="why-section">
+        <div className="why-content">
+          <div className="section-header">
+            <h2 className="section-title">Why Choose InterviewPrep?</h2>
+            <p className="section-subtitle">
+              Everything you need to ace your next interview in one place
+            </p>
+          </div>
+          
+          <div className="features-grid">
+            <div className="feature-item">
+              <div className="feature-icon">📘</div>
+              <h3>Real-World Experiences</h3>
+              <p>Access authentic interview stories from students who've been through the process</p>
+            </div>
+            
+            <div className="feature-item">
+              <div className="feature-icon">⚡</div>
+              <h3>Proven Strategies</h3>
+              <p>Learn from techniques and approaches that actually worked in real interviews</p>
+            </div>
+            
+            <div className="feature-item">
+              <div className="feature-icon">🤝</div>
+              <h3>Give Back</h3>
+              <p>Share your interview journey and help fellow students succeed</p>
+            </div>
+            
+            <div className="feature-item">
+              <div className="feature-icon">🚀</div>
+              <h3>Smart Preparation</h3>
+              <p>Target your prep with company-specific insights and practice patterns</p>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* Final CTA */}
-      <section className="cta-banner">
-        <h2>Ready to crack your interviews?</h2>
-        <p>Join the community and access exclusive interview insights from real students.</p>
-        <Link to="/login" className="cta-button">Get Started</Link>
+      <section className="cta-section">
+        <div className="cta-content">
+          <h2 className="cta-title">Ready to Crack Your Dream Interview?</h2>
+          <p className="cta-description">
+            Join hundreds of students who are preparing smarter with real interview insights
+          </p>
+          {auth.user 
+            ? <Link to="/interviews" className="btn btn-primary btn-lg">
+                Explore Now
+                <FaArrowRight />
+              </Link>
+            : <Link to="/login" className="btn btn-primary btn-lg">
+                Get Started Free
+                <FaArrowRight />
+              </Link>
+          }
+        </div>
       </section>
+      
     </div>
   );
 };

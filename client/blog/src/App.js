@@ -1,8 +1,12 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import './Styles/Global.css';  // Add this FIRST
+import './Styles/InterviewPage.css';
+// ... other imports
 
 // --- Core Components ---
 import Navbar from './components/Navbar.js';
+import Footer from './Pages/Footer.js'
 
 // --- Page Components (Consistent Naming) ---
 import HomePage from './Pages/HomePage.js';
@@ -21,11 +25,13 @@ import AdminRoute from './components/routing/AdminRouting.js';
 import AdminDashboardPage from './Pages/AdminDashBoardPage.js';
 import AdminModerationPage from './Pages/AdminPage.js';
 import AdminUserManagementPage from './Pages/AdminUserPage.js';
+import AdminFeedbackPage from './Pages/AdminFeedbackPage.js';
 
 
 function App() {
     return (
-        <Router>
+        <>
+            <Router>
             <Navbar />
             <Routes>
                 {/* --- Public & User Routes --- */}
@@ -45,10 +51,16 @@ function App() {
                         <Route index element={<AdminDashboardPage />} />
                         <Route path="moderation" element={<AdminModerationPage />} />
                         <Route path="users" element={<AdminUserManagementPage />} />
+                        <Route path="feedbacks" element={<AdminFeedbackPage />} />
                     </Route>
                 </Route>
             </Routes>
+            <Footer siteName="InterviewPrep" />
         </Router>
+
+        
+        </>
+        
     );
 }
 

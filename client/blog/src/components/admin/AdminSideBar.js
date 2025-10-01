@@ -18,6 +18,9 @@ const AdminSidebar = () => {
                 <li>
                     <NavLink to="/admin/users">Users</NavLink>
                 </li>
+                <li>
+                    <NavLink to="/admin/feedbacks">Feedbacks</NavLink>
+                </li>
             </ul>
         </aside>
     );

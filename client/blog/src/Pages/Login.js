@@ -3,10 +3,9 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import '../Styles/Form.css';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext.js';
-import { useNavigate,Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const LoginPage = () => {
-    // Fix 4: Removed unnecessary 'name' from initial state
     const [formData, setFormData] = useState({ email: '', password: '' });
     const [isVisible, setIsVisible] = useState(false);
     const { login } = useAuth();
@@ -18,67 +17,80 @@ const LoginPage = () => {
     };
 
     const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log("1. Starting login submission with data:", formData);
+        e.preventDefault();
 
-    try {
-        const res = await axios.post('http://localhost:5000/api/auth/login', formData);
-        
-        // This log is CRUCIAL. What does the server actually send back?
-        console.log("2. API response received:", res.data); 
+        try {
+            const res = await axios.post('http://localhost:5000/api/auth/login', formData);
 
-        if (res.data.success) {
-            console.log("3. Login was successful. Calling context's login function...");
-            const { token, user } = res.data;
-
-            // This is the function that saves the token.
-            login(token, user); 
-
-            console.log("4. Context login function finished. Navigating...");
-            alert('Login successful!');
-            navigate('/');
-        } else {
-            console.log("3b. Login failed according to the server's response.");
-            alert('Login failed: ' + res.data.message);
+            if (res.data.success) {
+                const { token, user } = res.data;
+                login(token, user);
+                alert('Login successful!');
+                navigate('/');
+            } else {
+                alert('Login failed: ');
+            }
+        } catch (error) {
+            alert('Login failed: ' + (error.response?.data?.message || 'Please check your credentials.'));
+            console.error(error);
         }
-    } catch (error) {
-        console.error("4b. An error occurred in the API call:", error);
-        alert('Login failed. Please check the console for details.');
-    }
-};
+    };
 
     return (
-        <div className="form-container">
-            <form onSubmit={handleSubmit} className="form-wrapper">
-                {/* ... your JSX remains the same ... */}
-                <h2 className="form-title">SignIn to Account</h2>
-                <div className="input-group">
-                    <label htmlFor="email" className="form-label">Email</label>
-                    <input
-                        type="email" id="email" name="email"
-                        value={formData.email} onChange={handleChange}
-                        className="form-input" required
-                    />
+        <div className="auth-page-container">
+            <div className="auth-form-card">
+                <div className="auth-form-header">
+                    <h2 className="auth-form-title">Welcome Back</h2>
+                    <p className="auth-form-subtitle">Sign in to your account to continue</p>
                 </div>
-                <div className="input-group">
-                    <label htmlFor="password" className="form-label">Password</label>
-                    <div className="password-input-wrapper">
+
+                <form onSubmit={handleSubmit} className="auth-form">
+                    <div className="auth-input-group">
+                        <label htmlFor="email" className="auth-label">Email Address</label>
                         <input
-                            type={isVisible ? "text" : "password"}
-                            id="password" name="password"
-                            value={formData.password} onChange={handleChange}
-                            className="form-input form-input-password" required
+                            type="email" 
+                            id="email" 
+                            name="email"
+                            value={formData.email} 
+                            onChange={handleChange}
+                            className="auth-input"
+                            placeholder="your.email@example.com" 
+                            required
                         />
-                        <div className="password-icon" onClick={() => setIsVisible(!isVisible)}>
-                            {isVisible ? <FaEyeSlash /> : <FaEye />}
+                    </div>
+
+                    <div className="auth-input-group">
+                        <label htmlFor="password" className="auth-label">Password</label>
+                        <div className="auth-password-wrapper">
+                            <input
+                                type={isVisible ? "text" : "password"}
+                                id="password" 
+                                name="password"
+                                value={formData.password} 
+                                onChange={handleChange}
+                                className="auth-input auth-password-input"
+                                placeholder="Enter your password" 
+                                required
+                            />
+                            <button 
+                                type="button"
+                                className="auth-password-toggle" 
+                                onClick={() => setIsVisible(!isVisible)}
+                            >
+                                {isVisible ? <FaEyeSlash /> : <FaEye />}
+                            </button>
                         </div>
                     </div>
-                </div>
-                <button type="submit" className="form-button">
-                    Login
-                </button>
-                <p>if you are a new user? <Link to='/signup'>SignUp</Link></p>
-            </form>
+
+                    <button type="submit" className="auth-submit-btn">
+                        Login
+                    </button>
+
+                    <p className="auth-footer-text">
+                        New user? <Link to='/signup' className="auth-link">Sign Up</Link>
+                    </p>
+                </form>
+            </div>
         </div>
     );
 };

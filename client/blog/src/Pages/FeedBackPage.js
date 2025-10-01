@@ -5,7 +5,7 @@ import { useAuth } from '../context/AuthContext';
 import '../Styles/FeedBackPage.css';
 
 function FeedbackPage() {
-    const [feedbackType, setFeedbackType] = useState('General Comment');
+    const [feedbacktype, setFeedbacktype] = useState('General Comment');
     const [message, setMessage] = useState('');
     const { auth } = useAuth();
     const navigate = useNavigate();
@@ -19,7 +19,7 @@ function FeedbackPage() {
             const config = { headers: { Authorization: `Bearer ${auth.token}` } };
             const response = await axios.post(
                 'http://localhost:5000/api/feedback',
-                { feedbackType, message },
+                { feedbacktype, message },
                 config
             );
             alert(response.data.message);
@@ -42,8 +42,8 @@ function FeedbackPage() {
                         <label htmlFor="feedbackType">Feedback Type</label>
                         <select
                             id="feedbackType"
-                            value={feedbackType}
-                            onChange={(e) => setFeedbackType(e.target.value)}
+                            value={feedbacktype}
+                            onChange={(e) => setFeedbacktype(e.target.value)}
                             className="form-input"
                         >
                             <option>General Comment</option>

@@ -35,14 +35,14 @@ const AdminDashboardPage = () => {
             </div>
 
             <div className="stats-grid">
-                <Link to="/admin/moderation" className="stat-card pending">
+                <Link to="/admin/moderation" className="stat-card">
                     <h2>{stats?.pendingExperiences}</h2>
                     <p>Pending Experiences</p>
                 </Link>
-                <div className="stat-card">
+                <Link to='/admin/users' className="stat-card">
                     <h2>{stats?.totalUsers}</h2>
                     <p>Total Users</p>
-                </div>
+                </Link>
                 <div className="stat-card">
                     <h2>{stats?.approvedExperiences}</h2>
                     <p>Approved Experiences</p>

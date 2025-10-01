@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import DOMPurify from 'dompurify';
 import { useAuth } from '../context/AuthContext';
@@ -15,6 +15,7 @@ const SingleExperiencePage = () => {
   const [error, setError] = useState('');
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState('');
+  const navigate = useNavigate()
 
   // Fetch experience
   useEffect(() => {
@@ -76,6 +77,10 @@ const SingleExperiencePage = () => {
     }
   };
 
+  const handleClick = () =>{
+    navigate(`/edit-experience/${experience._id}`);
+  }
+
   return (
     <div className="single-experience-layout">
       {/* --- Main Content --- */}
@@ -97,18 +102,18 @@ const SingleExperiencePage = () => {
                 className="round-description"
                 dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(round.description) }}
               />
-              {round.links.length > 0 ? (
+              {round.links && round.links.filter(link => link.trim() !== '').length > 0 && (
                 <div className="round-links">
                   <strong>Resources / Links:</strong>
                   <ul>
-                    {round.links.map((link, i) => (
+                    {round.links.filter(link => link.trim() !== '').map((link, i) => (
                       <li key={i}>
                         <a href={link} target="_blank" rel="noopener noreferrer">{link}</a>
                       </li>
                     ))}
                   </ul>
                 </div>
-              ):null}
+              )}
             </div>
           ))}
         </div>
@@ -138,27 +143,52 @@ const SingleExperiencePage = () => {
                             <Link to="/login">Log in</Link> to leave a comment.
                         </p>
                     )}
-            <div className="comments-list">
-                        {(comments || []).map(comment => (
-                            <div key={comment._id} className="comment-item">
-                                <div className="comment-author-avatar">{comment.author.name.charAt(0)}</div>
-                                <div className="comment-content">
-                                    <p className="comment-author-name">{comment.author.name}</p>
-                                    <p className="comment-text">{comment.content}</p>
-                                </div>
-                            </div>
-                        ))}
+
+                    <div className="comments-list">
+                      {(comments || []).map(comment => (
+                        <div key={comment._id} className="comment-item">
+                          <div className="comment-author-avatar">{comment.author.name.charAt(0)}</div>
+                          <div className="comment-content">
+                            <p className="comment-author-name">{comment.author.name}</p>
+                            <p className="comment-text">{comment.content}</p>
+
+                            {/* Show delete button only if the logged-in user is the comment author */}
+                            {auth.user && auth.user._id === comment.author._id && (
+                              <button
+                                className="delete-comment-btn"
+                                onClick={async () => {
+                                  if (!window.confirm("Are you sure you want to delete this comment?")) return;
+
+                                  try {
+                                    const config = { headers: { Authorization: `Bearer ${auth.token}` } };
+                                    await axios.delete(`http://localhost:5000/api/comments/${comment._id}`, config);
+
+                                    // Update state to remove deleted comment
+                                    setComments(comments.filter(c => c._id !== comment._id));
+                                  } catch (error) {
+                                    console.error("Failed to delete comment:", error);
+                                    alert("Failed to delete comment.");
+                                  }
+                                }}
+                              >
+                                Delete
+                              </button>
+                            )}
+                          </div>
+                        </div>
+                      ))}
                     </div>
-                    </div>
+
+        </div>
       </main>
 
       {/* --- Sidebar --- */}
       <aside className="experience-sidebar">
         <div className="sidebar-card">
           {isAuthor && (
-            <Link to={`/edit-experience/${experience._id}`} className="edit-button">
-              Edit Experience
-            </Link>
+            <button className="edit-button" onClick={handleClick}>Edit Experience</button> 
+              
+            
           )}
           <h3>Details</h3>
           <div className="details-list">

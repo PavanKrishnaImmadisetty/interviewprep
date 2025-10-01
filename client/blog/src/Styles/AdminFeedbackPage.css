@@ -1,0 +1,34 @@
+.feedback-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+.feedback-card {
+    background-color: #fff;
+    border: 1px solid var(--border-color, #e5e7eb);
+    border-radius: 8px;
+    padding: 1.5rem;
+}
+.feedback-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color, #e5e7eb);
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+}
+.feedback-type {
+    font-weight: 600;
+    background-color: #e9ecef;
+    padding: 4px 10px;
+    border-radius: 50px;
+    font-size: 0.8rem;
+}
+.feedback-meta {
+    font-size: 0.85rem;
+    color: var(--text-light, #6b7280);
+}
+.feedback-message {
+    margin: 0;
+    line-height: 1.6;
+}

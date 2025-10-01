@@ -47,8 +47,13 @@ export const AuthProvider = ({ children }) => {
         setAuth({ token: null, user: null });
     };
 
+    const setUser = (newUser) => {
+        setAuth(prevAuth => ({ ...prevAuth, user: newUser }));
+    };
+
     const value = {
         auth,
+        setAuth,
         login,
         logout    
     };

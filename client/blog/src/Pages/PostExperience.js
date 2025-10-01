@@ -16,7 +16,7 @@ const Roles = [
   "Intern"
 ];
 const Applied_At = ["On-campus", "Off-campus"];
-const BRANCH_OPTIONS = ["CSE", "ECE", "IT", "Mechanical", "Other"];
+const BRANCH_OPTIONS = ["CSE","CSM","CSD", "ECE", "IT", "Mechanical", "Other"];
 const VERDICT_OPTIONS = ["Selected", "Not Selected", "In Progress"];
 const DIFFICULTY_OPTIONS = ["Easy", "Medium", "Hard"];
 const ROUND_TYPE_OPTIONS = ["Online Assessment", "Technical Round", "Managerial Round", "HR Round"];
@@ -24,14 +24,14 @@ const ROUND_TYPE_OPTIONS = ["Online Assessment", "Technical Round", "Managerial 
 // --- Initial State ---
 const INITIAL_STATE = {
   companyName: '',
-  role: 'SDE',
+  role: '',
   location: '',
   interviewDate: '',
-  appliedAt: 'On-campus',
-  branch: 'CSE',
-  verdict: 'Selected',
-  difficulty: 'Medium',
-  rounds: [{ roundType: 'Online Assessment', description: '', links: '' }],
+  appliedAt: '',
+  branch: '',
+  verdict: '',
+  difficulty: '',
+  rounds: [{ roundType: '', description: '', links: '' }],
   tips: '',
 };
 
@@ -81,6 +81,7 @@ function PostExperiencePage() {
       const config = { headers: { Authorization: `Bearer ${auth.token}` } };
       await axios.post('http://localhost:5000/api/postexperience', formData, config);
       alert('Experience submitted successfully!');
+      handleClear()
       navigate('/');
     } catch (error) {
       console.error(error);
@@ -93,7 +94,7 @@ function PostExperiencePage() {
       <form onSubmit={handleSubmit} className="experience-form-card">
         <div className="form-header">
           <h1>Share Your Interview Experience</h1>
-          <p>Your story can help someone else land their dream job.</p>
+          <p>Your story can help someone else and their dream job.</p>
         </div>
 
         {/* --- General Details --- */}
@@ -119,13 +120,15 @@ function PostExperiencePage() {
               value={formData.role}
               onChange={handleChange}
               className="form-input"
+              required
             >
+              <option value="" disabled>Select Role</option>
               {Roles.map(opt => <option key={opt} value={opt}>{opt}</option>)}
             </select>
           </div>
 
           <div className="form-group">
-            <label htmlFor="location">Location</label>
+            <label htmlFor="location">Company Location</label>
             <input
               type="text"
               name="location"
@@ -157,7 +160,9 @@ function PostExperiencePage() {
               value={formData.appliedAt}
               onChange={handleChange}
               className="form-input"
+              required
             >
+              <option value="" disabled>Select </option>
               {Applied_At.map(opt => <option key={opt} value={opt}>{opt}</option>)}
             </select>
           </div>
@@ -170,7 +175,9 @@ function PostExperiencePage() {
               value={formData.branch}
               onChange={handleChange}
               className="form-input"
+              required
             >
+              <option value="" disabled>Select Branch</option>
               {BRANCH_OPTIONS.map(opt => <option key={opt} value={opt}>{opt}</option>)}
             </select>
           </div>
@@ -185,6 +192,7 @@ function PostExperiencePage() {
               className="form-input"
               required
             >
+              <option value="" disabled>Select Verdict</option>
               {VERDICT_OPTIONS.map(opt => <option key={opt} value={opt}>{opt}</option>)}
             </select>
           </div>
@@ -199,7 +207,9 @@ function PostExperiencePage() {
             value={formData.difficulty}
             onChange={handleChange}
             className="form-input"
+            required
           >
+            <option value="" disabled>Select Difficulty</option>
             {DIFFICULTY_OPTIONS.map(opt => <option key={opt} value={opt}>{opt}</option>)}
           </select>
         </div>
@@ -230,7 +240,9 @@ function PostExperiencePage() {
                     value={round.roundType}
                     onChange={(e) => handleRoundChange(index, e)}
                     className="form-input"
+                    required
                   >
+                    <option value="" disabled>Select Round</option>
                     {ROUND_TYPE_OPTIONS.map(opt => <option key={opt} value={opt}>{opt}</option>)}
                   </select>
                 </div>

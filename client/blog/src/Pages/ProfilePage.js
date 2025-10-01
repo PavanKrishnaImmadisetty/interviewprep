@@ -7,140 +7,152 @@ import { useAuth } from '../context/AuthContext.js';
 
 const ProfilePage = () => {
     const { userId } = useParams();
-    const [user, setUser] = useState(null);
-    const [experiences, setExperiences] = useState([]);
-    const [loading, setLoading] = useState(true);
     const { auth } = useAuth();
 
+    const [profileUser, setProfileUser] = useState(null);
+    const [experiences, setExperiences] = useState([]);
+    const [savedExperiences, setSavedExperiences] = useState([]);
+    const [activeTab, setActiveTab] = useState('posts');
+    const [loading, setLoading] = useState(true);
+
+    const isOwnProfile = auth.user && String(auth.user._id) === String(userId);
+
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchProfile = async () => {
             try {
-                const config = {headers : {Authorization : `Bearer ${auth.token}`}}
-                const [userResponse, experiencesResponse] = await Promise.all([
-                    axios.get(`http://localhost:5000/api/auth/${userId}`),
-                    axios.get(`http://localhost:5000/api/experiences/user/${userId}`,config)
-                ]);
-                
-                setUser(userResponse.data.user);
-                setExperiences(experiencesResponse.data.experiences);
-            } catch (error) {
-                console.error("Failed to fetch profile data:", error);
+                setLoading(true);
+                const config = auth.token ? { headers: { Authorization: `Bearer ${auth.token}` } } : {};
+
+                // 1. Get user details
+                if (isOwnProfile && auth.user) {
+                    setProfileUser(auth.user);
+                } else {
+                    const res = await axios.get(`http://localhost:5000/api/users/${userId}`, config);
+                    setProfileUser(res.data.user || res.data);
+                }
+
+                // 2. Get user's posts
+                const postsRes = await axios.get(`http://localhost:5000/api/experiences/user/${userId}`, config);
+                setExperiences(postsRes.data.experiences || []);
+
+                // 3. If own profile, fetch saved experiences
+                if (isOwnProfile && auth.user?.saves?.length > 0) {
+                    const savedIds = auth.user.saves;
+                    const savedRes = await axios.get(
+                        `http://localhost:5000/api/experiences?ids=${savedIds.join(',')}`,
+                        config
+                    );
+                    setSavedExperiences(savedRes.data.experiences || []);
+                }
+            } catch (err) {
+                console.error("Failed fetching profile data:", err);
             } finally {
                 setLoading(false);
             }
         };
-        fetchData();
-    }, [userId]);
 
-    const handleDelete = async (experienceId) => {
-        if (window.confirm("Are you sure you want to delete this experience?")) {
-            try {
-                const config = { headers: { Authorization: `Bearer ${auth.token}` } };
-                await axios.delete(`http://localhost:5000/api/experiences/${experienceId}`, config);
-                
-                alert('Experience deleted!');
-                setExperiences(experiences.filter(exp => exp._id !== experienceId));
-            } catch (error) {
-                console.error(`Unable to delete this experience:`, error);
-                alert('Failed to delete this experience.');
-            }
-        }
-    };
+        fetchProfile();
+    }, [userId, auth.token, auth.user, isOwnProfile]);
 
-    const getInitials = (name) => {
-        return name?.split(' ').map(n => n[0]).join('').toUpperCase() || 'U';
-    };
+    const getInitials = (name) => name?.split(' ').map(n => n[0]).join('').toUpperCase() || 'U';
 
     if (loading) {
         return (
-            <div className="loading-container">
-                <div className="loading-spinner"></div>
-                <p className="loading-text">Loading profile...</p>
-            </div>
-        );
-    }
-    
-    if (!user) {
-        return (
-            <div className="error-container">
-                <div className="error-content">
-                    <h2>User Not Found</h2>
-                    <p>The profile you're looking for doesn't exist or has been removed.</p>
-                </div>
+            <div className="profile-loading-container">
+                <div className="profile-loading-spinner"></div>
+                <p>Loading profile...</p>
             </div>
         );
     }
 
-    const createdDate = new Date(user.createdAt).toLocaleDateString('en-US', {
-        year: 'numeric', month: 'long', day: 'numeric'
-    });
+    if (!profileUser) {
+        return (
+            <div className="profile-error-container">
+                <h2>User Not Found</h2>
+            </div>
+        );
+    }
+
+    const createdDate = profileUser.createdAt
+        ? new Date(profileUser.createdAt).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+        })
+        : 'N/A';
+
+    const displayedExperiences = activeTab === 'posts' ? experiences : savedExperiences;
 
     return (
-        <div className="profile-page-container">
-            {/* Professional Header Section */}
-            <div className="profile-header-section">
-                <div className="profile-header">
-                    <div className="profile-avatar">
-                        <span className="avatar-initials">{getInitials(user.name)}</span>
+        <div className="user-profile-container">
+            {/* Profile Header Card */}
+            <div className="user-profile-header-card">
+                <div className="user-profile-cover"></div>
+                <div className="user-profile-content">
+                    <div className="user-profile-avatar">
+                        {getInitials(profileUser.name)}
                     </div>
-                    <div className="profile-info">
-                        <h1 className="profile-name">{user.name}</h1>
-                        <div className="profile-meta">
-                            <span className="meta-item">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                                    <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/>
-                                </svg>
-                                Joined {createdDate}
-                            </span>
-                            <span className="meta-item">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                                </svg>
-                                {experiences.length} {experiences.length === 1 ? 'Experience' : 'Experiences'}
-                            </span>
+                    <div className="user-profile-details">
+                        <h1 className="user-profile-name">{profileUser.name}</h1>
+                        <p className="user-profile-email">{profileUser.email}</p>
+                        <div className="user-profile-stats">
+                            <div className="user-stat-item">
+                                <span className="user-stat-value">{experiences.length}</span>
+                                <span className="user-stat-label">Experience{experiences.length !== 1 ? 's' : ''}</span>
+                            </div>
+                            <div className="user-stat-divider"></div>
+                            <div className="user-stat-item">
+                                <span className="user-stat-value">Joined</span>
+                                <span className="user-stat-label">{createdDate}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            {/* Experiences Section */}
-            <div className="experiences-section">
-                <div className="section-header">
-                    <h2 className="section-title">Interview Experiences</h2>
-                    <p className="section-description">
-                        Professional insights and interview experiences shared by {user.name}
-                    </p>
-                </div>
-                
-                <div className="experiences-list">
-                    {experiences.length > 0 ? (
-                        experiences.map((experience) => (
-                            <div key={experience._id} className="experience-item">
-                                <ExperienceCard 
-                                    experience={experience} 
-                                    showActions={true} 
-                                    onDelete={handleDelete} 
-                                />
-                            </div>
-                        ))
-                    ) : (
-                        <div className="empty-state">
-                            <div className="empty-content">
-                                <div className="empty-icon">
-                                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
-                                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                                        <polyline points="14,2 14,8 20,8"/>
-                                        <line x1="16" y1="13" x2="8" y2="13"/>
-                                        <line x1="16" y1="17" x2="8" y2="17"/>
-                                        <polyline points="10,9 9,9 8,9"/>
-                                    </svg>
-                                </div>
-                                <h3>No Experiences Shared</h3>
-                                <p>{user.name} hasn't shared any interview experiences yet.</p>
-                            </div>
-                        </div>
-                    )}
-                </div>
+            {/* Tabs Section */}
+            <div className="user-profile-tabs-container">
+                <button
+                    className={`user-tab-button ${activeTab === 'posts' ? 'user-tab-active' : ''}`}
+                    onClick={() => setActiveTab('posts')}
+                >
+                    Posts ({experiences.length})
+                </button>
+                {isOwnProfile && (
+                    <button
+                        className={`user-tab-button ${activeTab === 'saves' ? 'user-tab-active' : ''}`}
+                        onClick={() => setActiveTab('saves')}
+                    >
+                        Saved ({savedExperiences.length})
+                    </button>
+                )}
+            </div>
+
+            {/* Experiences List */}
+            <div className="user-experiences-list">
+                {displayedExperiences.length > 0 ? (
+                    displayedExperiences.map((exp) => (
+                        <ExperienceCard
+                            key={exp._id}
+                            experience={exp}
+                            showActions={activeTab === 'posts' && isOwnProfile}
+                        />
+                    ))
+                ) : (
+                    <div className="user-empty-state-card">
+                        <svg className="user-empty-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                        <h3 className="user-empty-title">No experiences yet</h3>
+                        <p className="user-empty-description">
+                            {activeTab === 'posts'
+                                ? isOwnProfile 
+                                    ? "You haven't shared any experiences yet. Share your first interview experience!"
+                                    : `${profileUser.name} hasn't shared any experiences yet.`
+                                : "You haven't saved any experiences yet."}
+                        </p>
+                    </div>
+                )}
             </div>
         </div>
     );

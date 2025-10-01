@@ -2,7 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
-import ExperienceForm from '../components/ExperienceForm.js'; // Import the REUSABLE FORM
+import ExperienceForm from '../components/ExperienceForm.js';
+import '../Styles/EditExperiencePage.css';
+import Footer from '../Pages/Footer.js'
+import Navbar from '../components/Navbar.js'
 
 const EditExperiencePage = () => {
     const { id } = useParams();
@@ -14,43 +17,54 @@ const EditExperiencePage = () => {
     useEffect(() => {
         const fetchExperience = async () => {
             try {
-                // Fetch the existing data for the specific experience
-                const response = await axios.get(`http://localhost:5000/api/experiences/${id}`);
+                const config = { headers: { Authorization: `Bearer ${auth.token}` } };
+                const response = await axios.get(`http://localhost:5000/api/experiences/${id}`, config);
                 setInitialData(response.data.experience);
             } catch (error) {
-                console.error("Failed to fetch experience for editing:", error);
-                navigate('/'); // Redirect home if the experience isn't found
+                
+                alert('Experience not found or you do not have permission to edit it.');
+                navigate('/');
             } finally {
                 setLoading(false);
             }
         };
         fetchExperience();
-    }, [id, navigate]);
+    }, [id, navigate, auth.token]);
 
     const handleUpdate = async (formData) => {
         try {
             const config = { headers: { Authorization: `Bearer ${auth.token}` } };
-            // Send a PUT request to the update endpoint
             await axios.put(`http://localhost:5000/api/experiences/${id}`, formData, config);
             alert('Experience updated successfully!');
-            navigate(`/experiences/${id}`); // Go back to the experience page
+            navigate(`/experiences/${id}`);
         } catch (error) {
-            console.error('Error updating experience:', error);
-            alert('Failed to update experience.');
+            
+            alert('Failed to update experience. Please try again.');
         }
     };
 
-    if (loading) return <div className="loading-message">Loading Editor...</div>;
+    if (loading) {
+        return (
+            <div className="edit-page-loading">
+                <div className="loading-spinner"></div>
+                <p>Loading experience data...</p>
+            </div>
+        );
+    }
 
     return (
-        <div>
-            {/* Render the form, NOT the card, and pass it the data and functions */}
-            <ExperienceForm 
-                initialData={initialData} 
-                onSubmit={handleUpdate} 
-                isEditing={true} 
-            />
+        <div className='page-wrapper' >
+            
+            <div className="edit-experience-page">
+                <ExperienceForm 
+                    initialData={initialData} 
+                    onSubmit={handleUpdate} 
+                    isEditing={true} 
+                />
+            </div>
+            
         </div>
+        
     );
 };
 

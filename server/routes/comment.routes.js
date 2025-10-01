@@ -51,9 +51,37 @@ router.get('/:experienceId', async (req, res) => {
         res.status(200).json({ success: true, comments: comments });
 
     } catch (e) {
+        
         res.status(500).json({ success: false, message: e.message });
     }
 });
+
+
+router.delete('/:commentId',authMiddleware,async (req,res) =>{
+
+    try{
+        const {commentId} = req.params
+
+        const comment = await commentModel.findById(commentId)
+
+        if(!comment){
+            res.status(400).json({success:false,message:'cannot find comment'})
+        }
+
+        if(comment.author.toString() !== req.user.id){
+            res.status(404).json({success:false,message:'User not authorised'})
+        }
+
+        comment.deleteOne();
+
+        res.status(200).json({success:true,message:"comment deleted successfully"})
+
+
+    }catch(e){
+        res.status(500).json({success:false,message:e.message})
+    }
+    
+})
 
 
 

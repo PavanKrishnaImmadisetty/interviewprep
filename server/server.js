@@ -26,7 +26,7 @@ app.use('/api/auth',authRouter)
 app.use('/api/',postRouter)
 app.use('/api/upload',uploadRouter)
 app.use('/api/comments',commentRouter)
-app.use('/api/feedback',feedbackRouter)
+app.use('/api/feedbacks',feedbackRouter)
 app.use('/api/admin',adminRouter)
 
 const port = process.env.Port

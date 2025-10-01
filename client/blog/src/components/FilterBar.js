@@ -20,23 +20,28 @@ const FilterBar = ({ filters, onFilterChange, companyOptions }) => {
 
     return (
         <div className="filter-bar">
+            {/* Sort Buttons Group */}
             <div className="filter-group sort-group">
-                <span className="filter-label">Sort by:</span>
-                <button 
-                    onClick={() => handleSortClick('Recent')}
-                    className={`sort-button ${filters.sortBy === 'Recent' ? 'active' : ''}`}
-                >
-                    Recent
-                </button>
-                <button 
-                    onClick={() => handleSortClick('Popular')}
-                    className={`sort-button ${filters.sortBy === 'Popular' ? 'active' : ''}`}
-                >
-                    Popular
-                </button>
+                <label className="filter-label">Sort by</label>
+                <div className="sort-buttons">
+                    <button 
+                        onClick={() => handleSortClick('Recent')}
+                        className={`sort-button ${filters.sortBy === 'Recent' ? 'active' : ''}`}
+                    >
+                        Recent
+                    </button>
+                    <button 
+                        onClick={() => handleSortClick('Popular')}
+                        className={`sort-button ${filters.sortBy === 'Popular' ? 'active' : ''}`}
+                    >
+                        Popular
+                    </button>
+                </div>
             </div>
 
+            {/* Verdict Filter */}
             <div className="filter-group">
+                <label className="filter-label">Verdict</label>
                 <select 
                     name="verdict" 
                     value={filters.verdict} 
@@ -50,7 +55,9 @@ const FilterBar = ({ filters, onFilterChange, companyOptions }) => {
                 </select>
             </div>
 
+            {/* Company Filter */}
             <div className="filter-group">
+                <label className="filter-label">Company</label>
                 <select 
                     name="company" 
                     value={filters.company} 
@@ -64,7 +71,10 @@ const FilterBar = ({ filters, onFilterChange, companyOptions }) => {
                 </select>
             </div>
             
-            <button onClick={handleClear} className="clear-button">Clear Filters</button>
+            {/* Clear Button */}
+            <button onClick={handleClear} className="clear-filters-btn">
+                Clear Filters
+            </button>
         </div>
     );
 };

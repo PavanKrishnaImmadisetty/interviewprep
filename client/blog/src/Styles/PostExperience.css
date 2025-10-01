@@ -24,8 +24,8 @@
     border-bottom: 1px solid #e9ecef;
     padding-bottom: 1.5rem;
 }
-.form-header h1 { font-size: 1.875rem; font-family: 'Poppins', sans-serif; color: #212529; }
-.form-header p { font-size: 1rem; color: #6c757d; margin-top: 0.5rem; }
+.form-header h1 { font-size: 1.875rem; font-family: 'Poppins', sans-serif; color: #d6d9dc; }
+.form-header p { font-size: 1rem; color: #fcfcfc; margin-top: 0.5rem; }
 
 .form-grid {
     display: grid;
