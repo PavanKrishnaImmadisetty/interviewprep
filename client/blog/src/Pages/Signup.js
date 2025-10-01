@@ -36,7 +36,7 @@ const SignupPage = () => {
     const navigate = useNavigate();
 
     const local = 'http://localhost:5000'
-    const global = 'https://interviewprep-mepc.onrender.com'
+    
 
 
     const handleChange = (e) => {
@@ -61,7 +61,7 @@ const SignupPage = () => {
                 batch: `${formData.startYear}-${formData.endYear}`
             };
 
-            const res = await axios.post(`${global}/api/auth/signup`, dataToSend);
+            const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/auth/signup`, dataToSend);
             
             if (res.data.success) {
                 alert('Signup successful! Please log in.');

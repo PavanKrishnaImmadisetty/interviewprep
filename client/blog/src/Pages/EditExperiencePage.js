@@ -14,14 +14,14 @@ const EditExperiencePage = () => {
     const [loading, setLoading] = useState(true);
 
     const local = 'http://localhost:5000'
-    const global = 'https://interviewprep-mepc.onrender.com'
+    
 
 
     useEffect(() => {
         const fetchExperience = async () => {
             try {
                 const config = { headers: { Authorization: `Bearer ${auth.token}` } };
-                const response = await axios.get(`${global}/api/experiences/${id}`, config);
+                const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/experiences/${id}`, config);
                 setInitialData(response.data.experience);
             } catch (error) {
                 
@@ -37,7 +37,7 @@ const EditExperiencePage = () => {
     const handleUpdate = async (formData) => {
         try {
             const config = { headers: { Authorization: `Bearer ${auth.token}` } };
-            await axios.put(`${global}/api/experiences/${id}`, formData, config);
+            await axios.put(`${process.env.REACT_APP_API_URL}/api/experiences/${id}`, formData, config);
             alert('Experience updated successfully!');
             navigate(`/experiences/${id}`);
         } catch (error) {

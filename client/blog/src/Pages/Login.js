@@ -11,7 +11,7 @@ const LoginPage = () => {
     const { login } = useAuth();
     const navigate = useNavigate();
     const local = 'http://localhost:5000'
-    const global = 'https://interviewprep-mepc.onrender.com'
+    
 
 
     const handleChange = (e) => {
@@ -23,7 +23,7 @@ const LoginPage = () => {
         e.preventDefault();
 
         try {
-            const res = await axios.post(`${global}/api/auth/login`, formData);
+            const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/auth/login`, formData);
 
             if (res.data.success) {
                 const { token, user } = res.data;

@@ -10,7 +10,7 @@ export const AuthProvider = ({ children }) => {
     });
 
     const local = 'http://localhost:5000'
-    const global = 'https://interviewprep-mepc.onrender.com'
+    
 
     // **NEW**: useEffect to fetch user data on initial load
     useEffect(() => {
@@ -22,7 +22,7 @@ export const AuthProvider = ({ children }) => {
                         headers: { Authorization: `Bearer ${auth.token}` }
                     };
                     // Fetch user profile from the new backend route
-                    const response = await axios.get(`${global}/api/auth/profile`, config);
+                    const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/auth/profile`, config);
                     
                     // Update the user in our state
                     setAuth(prevAuth => ({ ...prevAuth, user: response.data.user }));

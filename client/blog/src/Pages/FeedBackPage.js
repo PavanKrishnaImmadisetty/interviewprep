@@ -11,7 +11,7 @@ function FeedbackPage() {
     const navigate = useNavigate();
 
     const local = 'http://localhost:5000'
-    const global = 'https://interviewprep-mepc.onrender.com'
+    
 
 
     const handleSubmit = async (e) => {
@@ -22,7 +22,7 @@ function FeedbackPage() {
         try {
             const config = { headers: { Authorization: `Bearer ${auth.token}` } };
             const response = await axios.post(
-                `${global}/api/feedback`,
+                `${process.env.REACT_APP_API_URL}/api/feedback`,
                 { feedbacktype, message },
                 config
             );

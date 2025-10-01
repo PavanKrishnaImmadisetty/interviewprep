@@ -40,7 +40,7 @@ function PostExperiencePage() {
   const { auth } = useAuth();
   const navigate = useNavigate();
   const local = 'http://localhost:5000'
-  const global = 'https://interviewprep-mepc.onrender.com'
+  
 
 
   // --- Handlers ---
@@ -82,7 +82,7 @@ function PostExperiencePage() {
     e.preventDefault();
     try {
       const config = { headers: { Authorization: `Bearer ${auth.token}` } };
-      await axios.post(`${global}/api/postexperience`, formData, config);
+      await axios.post(`${process.env.REACT_APP_API_URL}/api/postexperience`, formData, config);
       alert('Experience submitted successfully!');
       handleClear()
       navigate('/');

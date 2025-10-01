@@ -9,14 +9,14 @@ const AdminUserManagementPage = () => {
     const { auth } = useAuth();
 
     const local = 'http://localhost:5000'
-    const global = 'https://interviewprep-mepc.onrender.com'
+    
 
 
      useEffect(() => {
         const fetchUsers = async () => {
             try {
                 const config = { headers: { Authorization: `Bearer ${auth.token}` } };
-                const res = await axios.get(`${global}/api/admin/users`, config);
+                const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/admin/users`, config);
                 setUsers(res.data.users);
             } catch (error) {
                 console.error("Could not fetch users", error);
@@ -33,7 +33,7 @@ const AdminUserManagementPage = () => {
         if (window.confirm(`Are you sure you want to change this user's role to ${newRole}?`)) {
             try {
                 const config = { headers: { Authorization: `Bearer ${auth.token}` } };
-                const res = await axios.put(`${global}/api/admin/users/${userId}/role`, { role: newRole }, config);
+                const res = await axios.put(`${process.env.REACT_APP_API_URL}/api/admin/users/${userId}/role`, { role: newRole }, config);
                 // Update the user's role in the local state for instant UI feedback
                 setUsers(users.map(user => user._id === userId ? res.data.user : user));
             } catch (error) {
@@ -46,7 +46,7 @@ const AdminUserManagementPage = () => {
         if (window.confirm("Are you sure you want to PERMANENTLY delete this user?")) {
             try {
                 const config = { headers: { Authorization: `Bearer ${auth.token}` } };
-                await axios.delete(`${global}/api/admin/users/${userId}`, config);
+                await axios.delete(`${process.env.REACT_APP_API_URL}/api/admin/users/${userId}`, config);
                 // Remove the deleted user from the local state
                 setUsers(users.filter(user => user._id !== userId));
             } catch (error) {

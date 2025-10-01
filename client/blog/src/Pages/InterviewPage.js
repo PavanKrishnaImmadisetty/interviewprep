@@ -20,7 +20,7 @@ const InterviewsPage = () => {
   const [loading, setLoading] = useState(true);
 
   const local = 'http://localhost:5000'
-  const global = 'https://interviewprep-mepc.onrender.com'
+  
 
 
   // Fetch data on mount
@@ -28,7 +28,7 @@ const InterviewsPage = () => {
     const fetchExperiences = async () => {
       try {
         const config = { headers: { Authorization: `Bearer ${auth.token}` } };
-        const response = await axios.get(`${global}/api/experiences`, config);
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/experiences`, config);
 
         const experiences = response.data.experiences || [];
         setAllExperiences(experiences);
