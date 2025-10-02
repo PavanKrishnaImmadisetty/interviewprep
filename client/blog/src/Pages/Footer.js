@@ -55,7 +55,7 @@ const Footer = ({ siteName = "InterviewPrep", year = new Date().getFullYear() })
                 <a href="https://github.com" target="_blank" rel="noreferrer" aria-label="GitHub" className="footer-social-icon">
                   <FaGithub />
                 </a>
-                <a href="www.linkedin.com/in/pavankrishnaimmadisetty" target="_blank" rel="noreferrer" aria-label="LinkedIn" className="footer-social-icon">
+                <a href="https://www.linkedin.com/in/pavankrishnaimmadisetty" target="_blank" rel="noreferrer" aria-label="LinkedIn" className="footer-social-icon">
                   <FaLinkedin />
                 </a>
                 <a href="mailto:pavankrishna1210@gmail.com" aria-label="Email" className="footer-social-icon">
