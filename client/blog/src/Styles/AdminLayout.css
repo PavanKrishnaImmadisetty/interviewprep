@@ -1,8 +1,39 @@
-.admin-layout {
-    display: flex;
+/* Design Variables */
+:root {
+    --primary-blue: #2563eb;
+    --bg-gray: #f9fafb;
+    --transition: all 0.3s ease;
 }
-.admin-content {
-    flex-grow: 1;
+
+/* Admin Layout Container */
+.admin-layout-container {
+    display: flex;
+    min-height: calc(100vh - 64px);
+    background-color: var(--bg-gray);
+}
+
+/* Main Content Area */
+.admin-main-content {
+    flex: 1;
     padding: 2rem;
-    background-color: var(--background-light, #f8f9fa);
+    overflow-x: hidden;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 992px) {
+    .admin-main-content {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .admin-main-content {
+        padding: 1.5rem 1rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .admin-main-content {
+        padding: 1rem;
+    }
 }

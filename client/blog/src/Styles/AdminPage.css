@@ -1,94 +1,299 @@
-.admin-container {
+/* Design Variables */
+:root {
+    --primary-blue: #2563eb;
+    --primary-blue-dark: #1e40af;
+    --text-dark: #1f2937;
+    --text-gray: #6b7280;
+    --text-light: #9ca3af;
+    --bg-white: #ffffff;
+    --bg-gray: #f9fafb;
+    --border-gray: #e5e7eb;
+    --success-green: #10b981;
+    --success-bg: #d1fae5;
+    --warning-orange: #f59e0b;
+    --warning-bg: #fef3c7;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+}
+
+/* Loading State */
+.admin-moderation-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+    gap: 1rem;
+}
+
+.admin-moderation-spinner {
+    width: 48px;
+    height: 48px;
+    border: 4px solid var(--border-gray);
+    border-top-color: var(--primary-blue);
+    border-radius: 50%;
+    animation: moderationSpin 0.8s linear infinite;
+}
+
+@keyframes moderationSpin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.admin-moderation-loading p {
+    font-size: 1rem;
+    color: var(--text-gray);
+    font-weight: 500;
+}
+
+/* Moderation Container */
+.admin-moderation-container {
     max-width: 1200px;
-    margin: 40px auto;
-    padding: 2rem;
-    font-family: 'Poppins', sans-serif;
+    margin: 0 auto;
 }
 
-.admin-header h1 {
-    font-size: 2.5rem;
-    color: var(--text-dark, #1f2937);
-    margin-bottom: 1rem;
-}
-
-.admin-header h2 {
-    font-size: 1.5rem;
-    color: var(--text-light, #6b7280);
+/* Moderation Header */
+.admin-moderation-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
     margin-bottom: 2rem;
-    border-bottom: 1px solid var(--border-color, #e5e7eb);
-    padding-bottom: 1rem;
+    flex-wrap: wrap;
+    gap: 1rem;
 }
 
-.pending-list {
+.admin-moderation-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin: 0 0 0.5rem 0;
+}
+
+.admin-moderation-subtitle {
+    font-size: 1rem;
+    color: var(--text-gray);
+    margin: 0;
+}
+
+.admin-moderation-badge {
+    background-color: var(--warning-bg);
+    color: var(--warning-orange);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.938rem;
+}
+
+/* Pending List */
+.admin-pending-list {
     display: flex;
     flex-direction: column;
     gap: 1rem;
 }
 
-.pending-item {
-    background-color: #fff;
-    border: 1px solid var(--border-color, #e5e7eb);
-    border-radius: 8px;
+/* Pending Card */
+.admin-pending-card {
+    background-color: var(--bg-white);
+    border: 1px solid var(--border-gray);
+    border-radius: 12px;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+}
+
+.admin-pending-card:hover {
+    box-shadow: var(--shadow-md);
+}
+
+.admin-pending-content {
     padding: 1.5rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    transition: box-shadow 0.2s ease;
+    gap: 1.5rem;
 }
 
-.pending-item:hover {
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+/* Pending Main Info */
+.admin-pending-main {
+    flex: 1;
+    min-width: 0;
 }
 
-.item-details h3 {
-    margin: 0 0 0.25rem 0;
-    font-size: 1.2rem;
-    color: var(--text-dark, #1f2937);
-}
-
-.item-details p {
-    margin: 0;
-    font-size: 0.9rem;
-    color: var(--text-light, #6b7280);
-}
-
-.item-actions {
+.admin-pending-company {
     display: flex;
-    gap: 1rem;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
 }
 
-/* We can reuse the .btn styles from the navbar for consistency */
-.item-actions .btn-review {
-    background-color: var(--background-light, #f9fafb);
-    color: var(--text-dark, #1f2937);
-    border-color: var(--border-color, #e5e7eb);
-    text-decoration: none;
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
+.admin-pending-icon {
+    color: var(--primary-blue);
+    font-size: 1.125rem;
+    flex-shrink: 0;
+}
+
+.admin-pending-company-name {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin: 0;
+}
+
+.admin-pending-role {
+    font-size: 1rem;
+    color: var(--text-gray);
+    margin: 0 0 0.75rem 0;
     font-weight: 500;
 }
-.item-actions .btn-review:hover {
-    background-color: #f0f0f0;
+
+.admin-pending-author {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--text-light);
 }
 
-.item-actions .btn-approve {
-    background-color: #28a745;
-    color: #fff;
+.admin-pending-author-icon {
+    font-size: 0.875rem;
+}
+
+/* Pending Actions */
+.admin-pending-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-shrink: 0;
+}
+
+.admin-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1.25rem;
     border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
-    font-weight: 500;
+    border-radius: 8px;
+    font-size: 0.938rem;
+    font-weight: 600;
     cursor: pointer;
-}
-.item-actions .btn-approve:hover {
-    background-color: #218838;
+    transition: var(--transition);
+    text-decoration: none;
+    font-family: inherit;
 }
 
-.no-pending-message {
-    padding: 3rem;
+.admin-btn svg {
+    font-size: 1rem;
+}
+
+.admin-btn-review {
+    background-color: var(--bg-gray);
+    color: var(--text-dark);
+    border: 1px solid var(--border-gray);
+}
+
+.admin-btn-review:hover {
+    background-color: var(--primary-blue);
+    color: white;
+    border-color: var(--primary-blue);
+}
+
+.admin-btn-approve {
+    background-color: var(--success-green);
+    color: white;
+}
+
+.admin-btn-approve:hover {
+    background-color: #059669;
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+}
+
+/* Empty State */
+.admin-empty-state {
+    background-color: var(--bg-white);
+    border: 2px dashed var(--border-gray);
+    border-radius: 12px;
+    padding: 4rem 2rem;
     text-align: center;
-    background-color: #fff;
-    border: 1px solid var(--border-color, #e5e7eb);
-    border-radius: 8px;
-    color: var(--text-light, #6b7280);
+}
+
+.admin-empty-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 1.5rem auto;
+    background-color: var(--success-bg);
+    color: var(--success-green);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+}
+
+.admin-empty-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin: 0 0 0.5rem 0;
+}
+
+.admin-empty-description {
+    font-size: 1rem;
+    color: var(--text-gray);
+    margin: 0;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .admin-moderation-title {
+        font-size: 1.5rem;
+    }
+
+    .admin-moderation-subtitle {
+        font-size: 0.875rem;
+    }
+
+    .admin-pending-content {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1.25rem;
+    }
+
+    .admin-pending-actions {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .admin-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .admin-moderation-header {
+        flex-direction: column;
+    }
+
+    .admin-moderation-badge {
+        align-self: flex-start;
+    }
+
+    .admin-pending-company-name {
+        font-size: 1.125rem;
+    }
+
+    .admin-empty-state {
+        padding: 3rem 1.5rem;
+    }
+
+    .admin-empty-icon {
+        width: 64px;
+        height: 64px;
+        font-size: 2rem;
+    }
+
+    .admin-empty-title {
+        font-size: 1.25rem;
+    }
 }
