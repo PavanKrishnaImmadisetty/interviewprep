@@ -77,15 +77,15 @@ function AdminPage() {
                                     </div>
                                 </div>
                                 <div className="admin-pending-actions">
-                                    <Link 
-                                        to={`/experiences/${exp._id}`} 
+                                    <a 
+                                        href={`/experiences/${exp._id}`} 
                                         target="_blank" 
                                         rel="noopener noreferrer" 
                                         className="admin-btn admin-btn-review"
                                     >
                                         <FaExternalLinkAlt />
                                         <span>Review</span>
-                                    </Link>
+                                    </a>
                                     <button 
                                         onClick={() => handleApprove(exp._id)} 
                                         className="admin-btn admin-btn-approve"
