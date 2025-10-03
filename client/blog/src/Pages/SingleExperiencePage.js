@@ -241,7 +241,7 @@ const SingleExperiencePage = () => {
             </div>
             <div className="author-info">
               <strong>{experience.author?.name || 'Anonymous'}</strong>
-              <p>{experience.author?.branch} | {experience.author?.batch}</p>
+              <p>{experience.author?.branch} </p>
             </div>
           </div>
         </div>
