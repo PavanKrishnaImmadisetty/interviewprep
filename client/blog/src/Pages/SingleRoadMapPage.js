@@ -33,7 +33,7 @@ const SingleRoadmapPage = () => {
         if (window.confirm("Are you sure you want to delete this roadmap?")) {
             try {
                 const config = { headers: { Authorization: `Bearer ${auth.token}` } };
-                await axios.delete(`http://localhost:5000/api/roadmaps/${id}`, config);
+                await axios.delete(`${process.env.REACT_APP_API_URL}/api/roadmaps/${id}`, config);
                 alert("Roadmap deleted successfully!");
                 navigate('/roadmaps'); // Navigate to the main roadmaps page
             } catch (error) {
@@ -58,7 +58,7 @@ const SingleRoadmapPage = () => {
                     <p>Published by {roadmap.author?.name || 'Anonymous'} on {postDate}</p>
                     {isAuthor && (
                         <div className="roadmap-actions">
-                            <Link to={`/edit-roadmap/${roadmap._id}`} className="btn-edit">Edit Roadmap</Link>
+                            
                             <button onClick={handleDelete} className="btn-delete">Delete Roadmap</button>
                         </div>
                     )}
