@@ -77,10 +77,23 @@ const Navbar = () => {
                                     Interviews
                                 </NavLink>
                             </li>
+
+                            <li className='navbar-item'>
+                                <NavLink to='/roadmaps' className='navbar-link' onClick={closeMobileMenu}>
+                                    Roadmaps
+                                </NavLink>      
+                            </li>
+                            
                             <li className="navbar-item">
                                 <NavLink to="/create" className="navbar-link" onClick={closeMobileMenu}>
                                     Post Experience
                                 </NavLink>
+                            </li>
+
+                            <li className='navbar-item'>
+                                <NavLink to='/create-roadmap' className='navbar-link' onClick={closeMobileMenu}>
+                                    Post Roadmap
+                                </NavLink>      
                             </li>
 
                             {/* Profile Dropdown */}

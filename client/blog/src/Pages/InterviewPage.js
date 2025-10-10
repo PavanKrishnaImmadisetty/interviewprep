@@ -35,8 +35,11 @@ const InterviewsPage = () => {
         setFilteredExperiences(experiences);
 
         // Create a unique list of company names for filter dropdown
-        const uniqueCompanies = [...new Set(experiences.map(exp => exp.companyName))];
-        setCompanyOptions(uniqueCompanies);
+        const uniqueCompanies = [...new Set(experiences.map(exp => exp.companyName?.trim().toLowerCase()).filter(Boolean) // remove null or empty
+  ),].map(name =>name.charAt(0).toUpperCase() + name.slice(1) );
+
+      setCompanyOptions(uniqueCompanies);
+
       } catch (err) {
         console.error("Failed to fetch experiences:", err);
       } finally {

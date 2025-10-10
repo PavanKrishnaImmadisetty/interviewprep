@@ -18,6 +18,9 @@ import CreateExperiencePage from './Pages/PostExperience.js';
 import SingleExperiencePage from './Pages/SingleExperiencePage.js';
 import EditExperiencePage from './Pages/EditExperiencePage.js';
 import ProfilePage from './Pages/ProfilePage.js';
+import CreateRoadmapPage from './Pages/PostRoadMap.js';
+import RoadmapsPage from './Pages/RoadMaps.js';
+import SingleRoadmapPage from './Pages/SingleRoadMapPage.js';
 
 // --- Admin Components ---
 import AdminLayout from './components/admin/AdminLayout.js';
@@ -44,6 +47,9 @@ function App() {
                 <Route path="/experiences/:id" element={<SingleExperiencePage />} />
                 <Route path="/edit-experience/:id" element={<EditExperiencePage />} />
                 <Route path="/profile/:userId" element={<ProfilePage />} />
+                <Route path="/create-roadmap" element={<CreateRoadmapPage />} />
+                <Route path="/roadmaps" element={<RoadmapsPage />} />
+                <Route path="/roadmaps/:id" element={<SingleRoadmapPage />} />
                 
                 {/* --- Admin Protected Routes --- */}
                 <Route element={<AdminRoute />}>

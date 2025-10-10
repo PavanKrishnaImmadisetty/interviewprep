@@ -3,6 +3,7 @@ import ExperienceModel from '../model/post.model.js';
 import authMiddleware from '../middleware/auth.middleware.js';
 import adminMiddleware from '../middleware/admin.middleware.js';
 import userModel from '../model/user.model.js';
+import roadmapModel from '../model/roadmap.model.js';
 
 const router = express.Router();
 
@@ -89,5 +90,53 @@ router.delete('/users/:id', authMiddleware, adminMiddleware, async (req, res) =>
         res.status(500).json({ success: false, message: 'Server Error' });
     }
 });
+
+/* rotes for roadmaps */
+
+router.get('/pending-roadmaps',authMiddleware,adminMiddleware,async (req,res) => {
+
+    try{
+
+        const roadmaps = await roadmapModel.find({status : 'Pending'}).populate('author','name').sort({createdAt : -1})
+
+        res.status(200).json({success:true,roadmaps})
+
+    }catch(e){
+        res.status(500).json({success:false,message:'Server Error'})    
+    }
+
+})
+
+
+
+// PUT /api/admin/roadmaps/:id/status - Update a roadmap's status
+router.put('/roadmaps/:id/status', authMiddleware, adminMiddleware, async (req, res) => {
+    try {
+        const { status } = req.body; // e.g., { "status": "Approved" }
+        const { id } = req.params;
+
+        // Optional: Validate the incoming status to be safe
+        if (!['Approved', 'Rejected'].includes(status)) {
+            return res.status(400).json({ message: 'Invalid status value.' });
+        }
+
+        const updatedRoadmap = await roadmapModel.findByIdAndUpdate(
+            id,
+            { status: status },
+            { new: true }
+        );
+
+        if (!updatedRoadmap) {
+            return res.status(404).json({ message: 'Roadmap not found.' });
+        }
+
+        res.status(200).json({ success: true, roadmap: updatedRoadmap });
+
+    } catch (e) {
+        res.status(500).json({ success: false, message: 'Server Error' });
+    }
+});
+
+
 
 export default router;

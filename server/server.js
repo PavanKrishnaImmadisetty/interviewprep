@@ -15,6 +15,7 @@ import uploadRouter from './routes/uploads.router.js'
 import commentRouter from './routes/comment.routes.js'
 import feedbackRouter from './routes/feedback.routes.js' 
 import adminRouter from './routes/admin.routes.js'
+import roadmapRouter from './routes/roadmap.router.js'
 
 
 const app = express()
@@ -39,6 +40,7 @@ app.use('/api/upload',uploadRouter)
 app.use('/api/comments',commentRouter)
 app.use('/api/feedbacks',feedbackRouter)
 app.use('/api/admin',adminRouter)
+app.use('/api/roadmaps',roadmapRouter)
 
 const port = process.env.Port
 app.listen(port,()=>console.log('server is running at 5000...'))

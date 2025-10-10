@@ -29,7 +29,7 @@ const AdminFeedbackPage = () => {
     // Filter feedbacks based on type
     const filteredFeedbacks = filter === 'all' 
         ? feedbacks 
-        : feedbacks.filter(item => item.feedbackType.toLowerCase() === filter);
+        : feedbacks.filter(item => item.feedbacktype === filter);
 
     // Get feedback type badge class
     const getBadgeClass = (type) => {
@@ -39,7 +39,7 @@ const AdminFeedbackPage = () => {
             'feature': 'badge-success',
             'other': 'badge-gray'
         };
-        return typeMap[type.toLowerCase()] || 'badge-gray';
+        return typeMap[type] || 'badge-gray';
     };
 
     if (loading) {
@@ -84,19 +84,19 @@ const AdminFeedbackPage = () => {
                             className={`filter-btn ${filter === 'bug' ? 'active' : ''}`}
                             onClick={() => setFilter('bug')}
                         >
-                            Bugs ({feedbacks.filter(f => f.feedbackType.toLowerCase() === 'bug').length})
+                            Bugs ({feedbacks.filter(f => f.feedbacktype === 'bug').length})
                         </button>
                         <button 
                             className={`filter-btn ${filter === 'suggestion' ? 'active' : ''}`}
                             onClick={() => setFilter('suggestion')}
                         >
-                            Suggestions ({feedbacks.filter(f => f.feedbackType.toLowerCase() === 'suggestion').length})
+                            Suggestions ({feedbacks.filter(f => f.feedbacktype === 'suggestion').length})
                         </button>
                         <button 
                             className={`filter-btn ${filter === 'other' ? 'active' : ''}`}
                             onClick={() => setFilter('other')}
                         >
-                            Other ({feedbacks.filter(f => f.feedbackType.toLowerCase() === 'other').length})
+                            Other ({feedbacks.filter(f => f.feedbacktype === 'other').length})
                         </button>
                     </div>
                 </div>

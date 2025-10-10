@@ -5,7 +5,7 @@ import { useAuth } from '../context/AuthContext';
 import '../Styles/FeedBackPage.css';
 
 function FeedbackPage() {
-    const [feedbacktype, setFeedbacktype] = useState('General Comment');
+    const [feedbacktype, setFeedbacktype] = useState('');
     const [message, setMessage] = useState('');
     const { auth } = useAuth();
     const navigate = useNavigate();
@@ -50,9 +50,10 @@ function FeedbackPage() {
                             onChange={(e) => setFeedbacktype(e.target.value)}
                             className="form-input"
                         >
-                            <option>General Comment</option>
-                            <option>Feature Request</option>
-                            <option>Bug Report</option>
+                            <option value="" disabled>Select Feedback Type</option>
+                            <option>bug</option>
+                            <option>suggestion</option>
+                            <option>other</option>
                         </select>
                     </div>
                     <div className="form-group">

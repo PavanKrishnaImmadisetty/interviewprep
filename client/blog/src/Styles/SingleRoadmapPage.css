@@ -1,0 +1,80 @@
+.roadmap-page-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.roadmap-content {
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 12px;
+    padding: 2.5rem;
+}
+
+.roadmap-header {
+    border-bottom: 1px solid #e9ecef;
+    padding-bottom: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.roadmap-header h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.8rem;
+    color: #212529;
+    line-height: 1.2;
+    margin: 0 0 1rem 0;
+}
+
+.roadmap-header p {
+    font-size: 1rem;
+    color: #6c757d;
+    margin: 0;
+}
+
+.roadmap-actions {
+    margin-top: 1.5rem;
+    display: flex;
+    gap: 1rem;
+}
+
+.btn-edit, .btn-delete {
+    padding: 8px 15px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.btn-edit { 
+    background-color: #f0f0f0; 
+    color: #333; 
+    border: 1px solid #ddd; 
+}
+
+.btn-delete { 
+    background-color: #f8d7da; 
+    color: #842029; 
+    border: 1px solid #f5c6cb; 
+}
+
+.roadmap-body {
+    font-family: 'Roboto', sans-serif;
+    color: #34495e;
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+.roadmap-body h1, 
+.roadmap-body h2, 
+.roadmap-body h3 {
+    font-family: 'Poppins', sans-serif;
+    color: #212529;
+}
+
+.roadmap-body img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 20px 0;
+}
