@@ -16,7 +16,7 @@ const RoadmapsPage = () => {
             try {
                 // 2. Updated API endpoint to fetch all roadmaps
                 const config = { headers : { Authorization : `Bearer ${auth.token}` } };
-                const response = await axios.get('http://localhost:5000/api/roadmaps/all',config);
+                const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/roadmaps/all`,config);
                 setRoadmaps(response.data.roadmaps || []);
             } catch (err) {
                 setError('Failed to fetch roadmaps.');
