@@ -18,7 +18,7 @@ const SingleRoadmapPage = () => {
             try {
                 // Simplified to fetch only the roadmap data
                 const config = { headers: { Authorization: `Bearer ${auth.token}` } };
-                const response = await axios.get(`http://localhost:5000/api/roadmaps/${id}`,config);
+                const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/roadmaps/${id}`,config);
                 setRoadmap(response.data.roadmap);
             } catch (err) {
                 console.error('Failed to fetch roadmap data:', err);
