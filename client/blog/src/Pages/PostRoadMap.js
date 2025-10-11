@@ -36,7 +36,7 @@ function CreateRoadmapPage() {
         try {
             const config = { headers: { Authorization: `Bearer ${auth.token}` } };
             // 3. Updated API endpoint
-            await axios.post('http://localhost:5000/api/roadmaps/create', formData, config);
+            await axios.post(`${process.env.REACT_APP_API_URL}/api/roadmaps/create`, formData, config);
             
             alert('Roadmap submitted for approval!');
             handleClear();
