@@ -88,9 +88,11 @@ const RoadmapCard = ({ roadmap, showActions }) => {
 
                 <footer className="roadmap-card-footer">
                     <div className="roadmap-card-actions">
+                        
+
                         <button 
                             onClick={handleLike} 
-                            className={`roadmap-action-btn ${isLiked ? 'roadmap-action-btn-liked' : ''}`}
+                            className={`roadmap-action-btn ${isLiked ? 'liked' : ''}`}
                         >
                             {isLiked ? <FaHeart /> : <FaRegHeart />}
                             <span className="action-count">{likeCount}</span>

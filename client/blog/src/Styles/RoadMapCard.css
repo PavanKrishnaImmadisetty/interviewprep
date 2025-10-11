@@ -56,6 +56,8 @@
     gap: 18px;
 }
 
+/* In RoadmapCard.css */
+
 .roadmap-action-btn {
     background: none;
     border: none;
@@ -72,9 +74,12 @@
     color: #2563eb;
 }
 
+/* This rule now only changes the color when the 'liked' class is present */
 .roadmap-action-btn.liked {
-    color: #e74c3c;
+    color: #e74c3c; /* Red */
 }
+
+
 
 .roadmap-card-link {
     color: #2563eb;
